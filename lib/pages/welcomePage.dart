@@ -3,34 +3,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
-class PasswordPage extends StatefulWidget {
-  const PasswordPage({Key? key}) : super(key: key);
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({Key? key}) : super(key: key);
 
   @override
-  State<PasswordPage> createState() => _PasswordPageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _PasswordPageState extends State<PasswordPage> {
+class _WelcomePageState extends State<WelcomePage> {
   String name="";
   bool changeButton=false;
   final _formKey = GlobalKey<FormState>();
-  moveToHome(BuildContext context) async {
-    // if(_formKey.currentState!.validate()) {
-    //   setState(() {
-    //     changeButton = true;
-    //   });
-    //   await Future.delayed(Duration(seconds: 1));
-    await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    //   setState(() {
-    //     changeButton = false;
-    //   });
-    // }
+  moveToSignIn(BuildContext context) async {
+    await Navigator.pushNamed(context, MyRoutes.signInRoute);
   }
   moveToLogin(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.loginRoute);
-  }
-  moveToPassword(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.passwordRoute);
   }
   @override
   Widget build(BuildContext context) {
@@ -48,10 +36,18 @@ class _PasswordPageState extends State<PasswordPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 30,),
-              Image.asset('assets/images/forgot.png'),
+              Image.asset('assets/images/welcome.png'),
+              SizedBox(height: 10,),
+              Text('My First App',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
               SizedBox(height: 10,),
               Container(
-                height: 270,
+                height: 320,
                 width: 325,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -60,55 +56,21 @@ class _PasswordPageState extends State<PasswordPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 10,),
-                    Text('Set your new password here',
+                    SizedBox(height: 30,),
+                    Text('Namaste',
                       style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Text('Select any one of them',
+                      style: TextStyle(
+                          fontSize: 15,
                           color: Colors.black26
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'New Password',
-                            suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your new password',
-                          ),
-                          validator: (value) {
-                            if(value != null && value.isEmpty){
-                              return "Email cannot be empty";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Confirm new Password',
-                            suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your new password',
-                          ),
-                          validator: (value) {
-                            if(value!=null && value.isEmpty)
-                            {
-                              return "Password cannot be empty";
-                            }
-                            else if(value!=null && value.length<8 )
-                            {
-                              return "Password length should be atleast 8";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 30,),
                     // ElevatedButton(
                     Material(
                       child: GestureDetector
@@ -133,7 +95,45 @@ class _PasswordPageState extends State<PasswordPage> {
                             child: Padding
                               (
                               padding: EdgeInsets.all(11.0),
-                              child: Text('Save Changes',
+                              child: Text('Login',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Material(
+                      child: GestureDetector
+                        (
+                        child: Container
+                          (
+                          alignment: Alignment.center,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Colors.tealAccent,
+                                    Colors.teal,
+                                  ]
+                              )
+                          ),
+                          child: InkWell(
+                            onTap: () => moveToSignIn(context),
+                            child: Padding
+                              (
+                              padding: EdgeInsets.all(11.0),
+                              child: Text('Sign Up',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

@@ -29,6 +29,9 @@ class _SignInPageState extends State<SignInPage> {
   moveToLogin(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.loginRoute);
   }
+  moveToVerify(BuildContext context) async {
+    await Navigator.pushNamed(context, MyRoutes.verifyRoute);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 15,),
+              SizedBox(height: 30,),
               Image.asset('assets/images/sign.png'),
               SizedBox(height: 5,),
               Text('My First App',
@@ -54,9 +57,9 @@ class _SignInPageState extends State<SignInPage> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(height: 1,),
+              SizedBox(height: 5,),
               Container(
-                height: 400,
+                height: 450,
                 width: 325,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -65,7 +68,7 @@ class _SignInPageState extends State<SignInPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 5,),
+                    SizedBox(height: 10,),
                     Text('Greetings',
                       style: TextStyle(
                           fontSize: 35,
@@ -154,7 +157,7 @@ class _SignInPageState extends State<SignInPage> {
                           },
                         )
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 20,),
                     // ElevatedButton(
                     Material(
                       child: GestureDetector
@@ -175,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                               )
                           ),
                           child: InkWell(
-                            onTap: () => moveToHome(context),
+                            onTap: () => moveToVerify(context),
                             child: Padding
                               (
                               padding: EdgeInsets.all(11.0),
@@ -196,7 +199,7 @@ class _SignInPageState extends State<SignInPage> {
 
 
                     SizedBox(
-                      height: 1,
+                      height: 10,
                     ),
                     // Text('Or Login using Google',
                     //   style: TextStyle(

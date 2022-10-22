@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
-class PasswordPage extends StatefulWidget {
-  const PasswordPage({Key? key}) : super(key: key);
+class VerifyPage extends StatefulWidget {
+  const VerifyPage({Key? key}) : super(key: key);
 
   @override
-  State<PasswordPage> createState() => _PasswordPageState();
+  State<VerifyPage> createState() => _VerifyPageState();
 }
 
-class _PasswordPageState extends State<PasswordPage> {
+class _VerifyPageState extends State<VerifyPage> {
   String name="";
   bool changeButton=false;
   final _formKey = GlobalKey<FormState>();
@@ -26,8 +26,8 @@ class _PasswordPageState extends State<PasswordPage> {
     //   });
     // }
   }
-  moveToLogin(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.loginRoute);
+  moveToSignIn(BuildContext context) async {
+    await Navigator.pushNamed(context, MyRoutes.signInRoute);
   }
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
@@ -48,10 +48,18 @@ class _PasswordPageState extends State<PasswordPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 30,),
-              Image.asset('assets/images/forgot.png'),
+              Image.asset('assets/images/verify.png'),
+              SizedBox(height: 10,),
+              Text('My First App',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
               SizedBox(height: 10,),
               Container(
-                height: 270,
+                height: 230,
                 width: 325,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -61,9 +69,9 @@ class _PasswordPageState extends State<PasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 10,),
-                    Text('Set your new password here',
+                    Text('Enter your email for verification',
                       style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 15,
                           color: Colors.black26
                       ),
                     ),
@@ -71,12 +79,11 @@ class _PasswordPageState extends State<PasswordPage> {
                     Container(
                         width: 250,
                         child: TextFormField(
-                          obscureText: true,
                           decoration: InputDecoration(
-                            labelText: 'New Password',
+                            labelText: 'Email Address',
                             suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
                             ),
-                            hintText: 'Enter your new password',
+                            hintText: 'Enter your email',
                           ),
                           validator: (value) {
                             if(value != null && value.isEmpty){
@@ -86,29 +93,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           },
                         )
                     ),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Confirm new Password',
-                            suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your new password',
-                          ),
-                          validator: (value) {
-                            if(value!=null && value.isEmpty)
-                            {
-                              return "Password cannot be empty";
-                            }
-                            else if(value!=null && value.length<8 )
-                            {
-                              return "Password length should be atleast 8";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 30,),
                     // ElevatedButton(
                     Material(
                       child: GestureDetector
@@ -129,11 +114,11 @@ class _PasswordPageState extends State<PasswordPage> {
                               )
                           ),
                           child: InkWell(
-                            onTap: () => moveToLogin(context),
+                            onTap: () => moveToHome(context),
                             child: Padding
                               (
                               padding: EdgeInsets.all(11.0),
-                              child: Text('Save Changes',
+                              child: Text('Verify Email',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

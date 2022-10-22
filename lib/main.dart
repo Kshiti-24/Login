@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/pages/homePage.dart';
 import 'package:login_ui/pages/loginPage.dart';
+import 'package:login_ui/pages/verify.dart';
+import 'package:login_ui/pages/welcomePage.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:login_ui/widgets/themes.dart';
 import 'package:login_ui/pages/signin_page.dart';
+import 'package:login_ui/pages/passwordPage.dart';
+import 'package:login_ui/pages/verify.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,10 +27,12 @@ class MyApp extends StatelessWidget {
       darkTheme:MyTheme.darkTheme(context),
       initialRoute: "/",
       routes: {
-        "/": (context) => LoginPage(),
+        "/": (context) => WelcomePage(),
         MyRoutes.loginRoute: (context) => LoginPage(),
         MyRoutes.homeRoute: (context) => HomePage(),
         MyRoutes.signInRoute: (context) => SignInPage(),
+        MyRoutes.passwordRoute: (context) => PasswordPage(),
+        MyRoutes.verifyRoute: (context) => VerifyPage(),
       },
     );
   }

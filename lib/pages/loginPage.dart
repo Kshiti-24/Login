@@ -29,6 +29,9 @@ class _LoginPageState extends State<LoginPage> {
   moveToSignIn(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.signInRoute);
   }
+  moveToPassword(BuildContext context) async {
+    await Navigator.pushNamed(context, MyRoutes.passwordRoute);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,17 +123,20 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       )
                     ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 40, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('Forget Password ?',
-                      style: TextStyle(
-                        color: Colors.orangeAccent[700]
-                      ),
-                      )
-                    ],
+                InkWell(
+                  onTap: () => moveToPassword(context),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(20, 20, 40, 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text('Forget Password ?',
+                        style: TextStyle(
+                          color: Colors.orangeAccent[700]
+                        ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                     SizedBox(height: 1,),
