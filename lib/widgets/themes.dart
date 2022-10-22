@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class MyTheme{
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-    primarySwatch: Colors.deepPurple,
+    primarySwatch: Colors.teal,
     fontFamily: GoogleFonts.lato().fontFamily,
     primaryTextTheme: GoogleFonts.latoTextTheme(),
     appBarTheme: AppBarTheme(
