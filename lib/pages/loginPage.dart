@@ -11,26 +11,28 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String name="";
-  bool changeButton=false;
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
+  String _email='';
+  String _password='';
   moveToHome(BuildContext context) async {
-    // if(_formKey.currentState!.validate()) {
-    //   setState(() {
-    //     changeButton = true;
-    //   });
-    //   await Future.delayed(Duration(seconds: 1));
       await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    //   setState(() {
-    //     changeButton = false;
-    //   });
-    // }
   }
   moveToSignIn(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.signInRoute);
   }
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
+  }
+  void validateAndSave(){
+    final form=_formKey.currentState;
+    // if(form.validate())
+    //   {
+    //     print('Form is valid');
+    //   }
+    // else
+    //   {
+    //     print('Form is invalid');
+    //   }
   }
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.yellow,Colors.orange,Colors.red]
+              colors: [Colors.red,Colors.pink,Colors.purple]
             )
           ),
           child: Column(
@@ -176,26 +178,9 @@ class _LoginPageState extends State<LoginPage> {
                        ),
                        ),
                      ),
-                     // onPressed: (){
-                     //   Navigator.pushNamed(context, MyRoutes.homeRoute);
-
-                   
                     SizedBox(
                       height: 10,
                     ),
-                    // Text('Or Login using Google',
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold
-                    //   ),
-                    // ),
-                    // SizedBox(height: 10,),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Icon(FontAwesomeIcons.google,color: Colors.pink,),
-                    //
-                    //   ],
-                    // )
                     InkWell(
                       onTap: () => moveToSignIn(context),
                       child: Padding(

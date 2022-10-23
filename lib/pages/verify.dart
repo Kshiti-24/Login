@@ -11,20 +11,8 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
-  String name="";
-  bool changeButton=false;
-  final _formKey = GlobalKey<FormState>();
   moveToHome(BuildContext context) async {
-    // if(_formKey.currentState!.validate()) {
-    //   setState(() {
-    //     changeButton = true;
-    //   });
-    //   await Future.delayed(Duration(seconds: 1));
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    //   setState(() {
-    //     changeButton = false;
-    //   });
-    // }
   }
   moveToSignIn(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.signInRoute);
@@ -41,7 +29,7 @@ class _VerifyPageState extends State<VerifyPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.yellow,Colors.orange,Colors.red]
+                  colors: [Colors.cyan,Colors.blue,Colors.indigo]
               )
           ),
           child: Column(

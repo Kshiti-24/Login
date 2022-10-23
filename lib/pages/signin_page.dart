@@ -11,20 +11,8 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  String name="";
-  bool changeButton=false;
-  final _formKey = GlobalKey<FormState>();
   moveToHome(BuildContext context) async {
-    // if(_formKey.currentState!.validate()) {
-    //   setState(() {
-    //     changeButton = true;
-    //   });
-    //   await Future.delayed(Duration(seconds: 1));
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    //   setState(() {
-    //     changeButton = false;
-    //   });
-    // }
   }
   moveToLogin(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.loginRoute);
@@ -194,26 +182,9 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
-                    // onPressed: (){
-                    //   Navigator.pushNamed(context, MyRoutes.homeRoute);
-
-
                     SizedBox(
                       height: 10,
                     ),
-                    // Text('Or Login using Google',
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold
-                    //   ),
-                    // ),
-                    // SizedBox(height: 10,),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Icon(FontAwesomeIcons.google,color: Colors.pink,),
-                    //
-                    //   ],
-                    // )
                     InkWell(
                       onTap: () => moveToLogin(context),
                       child: Padding(

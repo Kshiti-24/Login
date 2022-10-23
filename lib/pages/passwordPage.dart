@@ -11,20 +11,8 @@ class PasswordPage extends StatefulWidget {
 }
 
 class _PasswordPageState extends State<PasswordPage> {
-  String name="";
-  bool changeButton=false;
-  final _formKey = GlobalKey<FormState>();
   moveToHome(BuildContext context) async {
-    // if(_formKey.currentState!.validate()) {
-    //   setState(() {
-    //     changeButton = true;
-    //   });
-    //   await Future.delayed(Duration(seconds: 1));
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    //   setState(() {
-    //     changeButton = false;
-    //   });
-    // }
   }
   moveToLogin(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.loginRoute);
@@ -41,7 +29,7 @@ class _PasswordPageState extends State<PasswordPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.yellow,Colors.orange,Colors.red]
+                  colors: [Colors.green,Colors.teal,Colors.blue]
               )
           ),
           child: Column(
@@ -74,7 +62,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'New Password',
-                            suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
+                            suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
                             ),
                             hintText: 'Enter your new password',
                           ),
