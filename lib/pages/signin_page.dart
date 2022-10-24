@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:login_ui/services/auth._service.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_ui/services/auth._service.dart';
 class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+
+
+  SignInPage({Key? key}) : super(key: key);
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -19,6 +24,8 @@ class _SignInPageState extends State<SignInPage> {
   String password="";
   String username="";
   String phone="";
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   moveToHome(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
   }
@@ -102,6 +109,7 @@ class _SignInPageState extends State<SignInPage> {
                         Container(
                             width: 250,
                             child: TextFormField(
+                              controller: emailController,
                               decoration: InputDecoration(
                                 labelText: 'Email Address',
                                 suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
@@ -127,6 +135,7 @@ class _SignInPageState extends State<SignInPage> {
                         Container(
                             width: 250,
                             child: TextFormField(
+                              controller: passwordController,
                               obscureText: _isHidden,
                               decoration: InputDecoration(
                                 labelText: 'Password',
@@ -208,12 +217,15 @@ class _SignInPageState extends State<SignInPage> {
                                   )
                               ),
                               child: InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   if(_key.currentState!.validate()){
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('Please verify your email')));
                                     const Text("Signing Up");
                                     Navigator.pushNamed(context, MyRoutes.verifyRoute);
+                                  }
+                                  else{
+                                    User? result = await AuthService().register(emailController.text, passwordController.text);
                                   }
                                 },
                                 child: Padding
