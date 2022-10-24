@@ -11,6 +11,9 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
+  String email="";
   moveToHome(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
   }
@@ -32,96 +35,114 @@ class _VerifyPageState extends State<VerifyPage> {
                   colors: [Colors.cyan,Colors.blue,Colors.indigo]
               )
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 30,),
-              Image.asset('assets/images/verify.png'),
-              SizedBox(height: 10,),
-              Text('My First App',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height: 230,
-                width: 325,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 10,),
-                    Text('Enter your email for verification',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black26
-                      ),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _key,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30,),
+                  Image.asset('assets/images/verify.png'),
+                  SizedBox(height: 10,),
+                  Text('My First App',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-                    SizedBox(height: 20,),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Email Address',
-                            suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your email',
-                          ),
-                          validator: (value) {
-                            if(value != null && value.isEmpty){
-                              return "Email cannot be empty";
-                            }
-                            return null;
-                          },
-                        )
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    height: 230,
+                    width: 325,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)
                     ),
-                    SizedBox(height: 30,),
-                    // ElevatedButton(
-                    Material(
-                      child: GestureDetector
-                        (
-                        child: Container
-                          (
-                          alignment: Alignment.center,
-                          width: 250,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Colors.tealAccent,
-                                    Colors.teal,
-                                  ]
-                              )
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10,),
+                        Text('Enter your email for verification',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black26
                           ),
-                          child: InkWell(
-                            onTap: () => moveToHome(context),
-                            child: Padding
+                        ),
+                        SizedBox(height: 20,),
+                        Container(
+                            width: 250,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Email Address',
+                                suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
+                                ),
+                                hintText: 'Enter your email',
+                              ),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if(value!.isEmpty){
+                                    return 'Email cannot be empty';
+                                  }
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$').hasMatch(
+                                          value!)) {
+                                    return 'Enter Correct Email';
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                }
+                            )
+                        ),
+                        SizedBox(height: 30,),
+                        // ElevatedButton(
+                        Material(
+                          child: GestureDetector
+                            (
+                            child: Container
                               (
-                              padding: EdgeInsets.all(11.0),
-                              child: Text('Verify Email',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
+                              alignment: Alignment.center,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.tealAccent,
+                                        Colors.teal,
+                                      ]
+                                  )
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  if(_key.currentState!.validate()){
+                                    const Text("Verifying Email");
+                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                  }
+                                },
+                                child: Padding
+                                  (
+                                  padding: EdgeInsets.all(11.0),
+                                  child: Text('Verify Email',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

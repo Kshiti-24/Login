@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
+import 'package:flutter/services.dart';
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -11,6 +12,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
+  String email="";
+  String password="";
+  String username="";
+  String phone="";
   moveToHome(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
   }
@@ -32,186 +39,221 @@ class _SignInPageState extends State<SignInPage> {
                   colors: [Colors.yellow,Colors.orange,Colors.red]
               )
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 30,),
-              Image.asset('assets/images/sign.png'),
-              SizedBox(height: 5,),
-              Text('My First App',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(height: 5,),
-              Container(
-                height: 450,
-                width: 325,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 10,),
-                    Text('Greetings',
-                      style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold
-                      ),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _key,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30,),
+                  Image.asset('assets/images/sign.png'),
+                  SizedBox(height: 5,),
+                  Container(
+                    height: 600,
+                    width: 325,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)
                     ),
-                    SizedBox(height: 5,),
-                    Text('Enter your details to Sign Up',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black26
-                      ),
-                    ),
-                    SizedBox(height: 1,),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Username',
-                            suffixIcon: Icon(Icons.verified_user,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your username',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 5,),
+                        Text('Greetings',
+                          style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold
                           ),
-                          validator: (value) {
-                            if(value != null && value.isEmpty){
-                              return "Email cannot be empty";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Email Address',
-                            suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your email',
+                        ),
+                        SizedBox(height: 5,),
+                        Text('Enter your details to Sign Up',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black26
                           ),
-                          validator: (value) {
-                            if(value != null && value.isEmpty){
-                              return "Email cannot be empty";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your email',
-                          ),
-                          validator: (value) {
-                            if(value!=null && value.isEmpty)
-                            {
-                              return "Password cannot be empty";
-                            }
-                            else if(value!=null && value.length<8 )
-                            {
-                              return "Password length should be atleast 8";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    Container(
-                        width: 250,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Phone Number',
-                            suffixIcon: Icon(Icons.phone,color: Colors.black,size: 17,
-                            ),
-                            hintText: 'Enter your phone number',
-                          ),
-                          validator: (value) {
-                            if(value != null && value.isEmpty){
-                              return "Email cannot be empty";
-                            }
-                            return null;
-                          },
-                        )
-                    ),
-                    SizedBox(height: 20,),
-                    // ElevatedButton(
-                    Material(
-                      child: GestureDetector
-                        (
-                        child: Container
-                          (
-                          alignment: Alignment.center,
-                          width: 250,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Colors.tealAccent,
-                                    Colors.teal,
-                                  ]
-                              )
-                          ),
-                          child: InkWell(
-                            onTap: () => moveToVerify(context),
-                            child: Padding
+                        ),
+                        SizedBox(height: 1,),
+                        Container(
+                            width: 250,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Username',
+                                suffixIcon: Icon(Icons.verified_user,color: Colors.black,size: 17,
+                                ),
+                                hintText: 'Enter your username',
+                              ),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                if(value!.isEmpty){
+                                  return 'Username cannot be empty';
+                                }
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$').hasMatch(
+                                          value!)) {
+                                    return 'Enter Correct Username';
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                }
+                            )
+                        ),
+                        Container(
+                            width: 250,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Email Address',
+                                suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
+                                ),
+                                hintText: 'Enter your email',
+                              ),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if(value!.isEmpty){
+                                    return 'Email cannot be empty';
+                                  }
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$').hasMatch(
+                                          value!)) {
+                                    return 'Enter Correct Email';
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                }
+                            )
+                        ),
+                        Container(
+                            width: 250,
+                            child: TextFormField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
+                                ),
+                                hintText: 'Enter your password',
+                              ),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if(value!.isEmpty){
+                                    return 'Passsord cannot be empty';
+                                  }
+                                  else if (value.length < 8) {
+                                    return "Password must be atleast 8 characters long";
+                                  }
+                                  else if (value!.isEmpty ||
+                                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(
+                                          value!)) {
+                                    return 'Enter Correct password';
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                }
+                            )
+                        ),
+                        Container(
+                            width: 250,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Phone Number',
+                                suffixIcon: Icon(Icons.phone,color: Colors.black,size: 17,
+                                ),
+                                hintText: 'Enter your phone number',
+                              ),
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly],
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if(value!.isEmpty){
+                                    return 'Phone number cannot be empty';
+                                  }
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(
+                                          value!)) {
+                                    return 'Enter valid Phone Number';
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                }
+                            )
+                        ),
+                        SizedBox(height: 20,),
+                        // ElevatedButton(
+                        Material(
+                          child: GestureDetector
+                            (
+                            child: Container
                               (
-                              padding: EdgeInsets.all(11.0),
-                              child: Text('Sign Up',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
+                              alignment: Alignment.center,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.tealAccent,
+                                        Colors.teal,
+                                      ]
+                                  )
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  if(_key.currentState!.validate()){
+                                    const Text("Signing Up");
+                                    Navigator.pushNamed(context, MyRoutes.verifyRoute);
+                                  }
+                                },
+                                child: Padding
+                                  (
+                                  padding: EdgeInsets.all(11.0),
+                                  child: Text('Sign Up',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                      onTap: () => moveToLogin(context),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 5, 5, 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Already have an account ?',
-                              style: TextStyle(
-                                  color: Colors.orangeAccent[700]
-                              ),
-                            ),
-                            Text(' Login',
-                              style: TextStyle(
-                                color: Colors.cyan,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            )
-                          ],
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
+                        InkWell(
+                          onTap: () => moveToLogin(context),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(15, 5, 5, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Already have an account ?',
+                                  style: TextStyle(
+                                      color: Colors.orangeAccent[700]
+                                  ),
+                                ),
+                                Text(' Login',
+                                  style: TextStyle(
+                                    color: Colors.cyan,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

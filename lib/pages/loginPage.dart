@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
+import 'package:flutter/src/material/scaffold.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -11,9 +12,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = new GlobalKey<FormState>();
-  String _email='';
-  String _password='';
+  final _globalKey = GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
+  String email="";
+  String password="";
+
   moveToHome(BuildContext context) async {
       await Navigator.pushNamed(context, MyRoutes.homeRoute);
   }
@@ -23,19 +27,10 @@ class _LoginPageState extends State<LoginPage> {
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
   }
-  void validateAndSave(){
-    final form=_formKey.currentState;
-    // if(form.validate())
-    //   {
-    //     print('Form is valid');
-    //   }
-    // else
-    //   {
-    //     print('Form is invalid');
-    //   }
-  }
+
   @override
   Widget build(BuildContext context) {
+    final double height= MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -46,171 +41,193 @@ class _LoginPageState extends State<LoginPage> {
               colors: [Colors.red,Colors.pink,Colors.purple]
             )
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 30,),
-              Image.asset('assets/images/login.png'),
-              SizedBox(height: 10,),
-              Text('My First App',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height: 400,
-                width: 325,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 30,),
-                    Text('Greetings',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
+          child: Form(
+            key: _key,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 30,),
+                Image.asset('assets/images/login.png'),
                 SizedBox(height: 10,),
-                Text('Enter your details to login',
+                Text('My First App',
                 style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black26
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 10,),
                 Container(
-                  width: 250,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Email Address',
-                      suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
-                    ),
-                      hintText: 'Enter your email',
+                  height: 450,
+                  width: 325,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)
                   ),
-                    validator: (value) {
-                      if(value != null && value.isEmpty){
-                        return "Email cannot be empty";
-                      }
-                      return null;
-                    },
-                )
-                ),
-                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 30,),
+                      Text('Greetings',
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                  SizedBox(height: 10,),
+                  Text('Enter your details to login',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black26
+                  ),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
                     width: 250,
                     child: TextFormField(
-                      obscureText: true,
                       decoration: InputDecoration(
-                        labelText: 'Password',
-                        suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
-                        ),
+                        labelText: 'Email Address',
+                        suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
+                      ),
                         hintText: 'Enter your email',
-                      ),
+                    ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
-                        if(value!=null && value.isEmpty)
-                          {
-                            return "Password cannot be empty";
-                          }
-                        else if(value!=null && value.length<8 )
-                          {
-                            return "Password length should be atleast 8";
-                          }
-                        return null;
-                      },
-                      )
-                    ),
-                InkWell(
-                  onTap: () => moveToPassword(context),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 40, 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text('Forget Password ?',
-                        style: TextStyle(
-                          color: Colors.orangeAccent[700]
-                        ),
-                        )
-                      ],
-                    ),
+                        if(value!.isEmpty){
+                          return 'Email cannot be empty';
+                        }
+                        if (value!.isEmpty ||
+                            !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$').hasMatch(
+                                value!)) {
+                          return 'Enter Correct Email';
+                        }
+                        else {
+                          return null;
+                        }
+                      }
                   ),
-                ),
-                    SizedBox(height: 1,),
-                   // ElevatedButton(
-                     Material(
-                       child: GestureDetector
-                         (
-                           child: Container
-                             (
-                             alignment: Alignment.center,
-                               width: 250,
-                               decoration: BoxDecoration(
-                                 borderRadius: BorderRadius.circular(50),
-                                       gradient: LinearGradient(
-                                         begin: Alignment.centerLeft,
-                                         end: Alignment.centerRight,
-                                         colors: [
-                                           Colors.tealAccent,
-                                           Colors.teal,
-                                         ]
-                                       )
-                               ),
-                               child: InkWell(
-                                 onTap: () => moveToHome(context),
-                                 child: Padding
-                                   (
-                                     padding: EdgeInsets.all(11.0),
-                                     child: Text('Login',
-                                         style: TextStyle(
-                                             color: Colors.white,
-                                             fontSize: 20,
-                                             fontWeight: FontWeight.bold
-                                     ),
-                                 ),
-                           ),
-                               ),
-                       ),
-                       ),
-                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                      onTap: () => moveToSignIn(context),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 15, 30, 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Dont have an acoount ?',
-                              style: TextStyle(
-                                  color: Colors.orangeAccent[700]
-                              ),
-                            ),
-                            Text(' Sign Up',
-                              style: TextStyle(
-                                  color: Colors.cyan,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            )
-                          ],
+                  ),
+                  Container(
+                      width: 250,
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
+                          ),
+                          hintText: 'Enter your password',
                         ),
+                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if(value!.isEmpty){
+                              return 'Passsord cannot be empty';
+                            }
+                            else if (value.length < 8) {
+                              return "Password must be atleast 8 characters long";
+                            }
+                            else if (value!.isEmpty ||
+                                !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(
+                                    value!)) {
+                              return 'Enter Correct Password';
+                            }
+                            else {
+                              return null;
+                            }
+                          }
+                        )
+                      ),
+                  InkWell(
+                    onTap: () => moveToPassword(context),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(20, 20, 40, 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text('Forget Password ?',
+                          style: TextStyle(
+                            color: Colors.orangeAccent[700]
+                          ),
+                          )
+                        ],
                       ),
                     ),
-              ],
                   ),
-          ),
-          ],
+                      SizedBox(height: 1,),
+                     // ElevatedButton(
+                       Material(
+                         child: GestureDetector
+                           (
+                             child: Container
+                               (
+                               alignment: Alignment.center,
+                                 width: 250,
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(50),
+                                         gradient: LinearGradient(
+                                           begin: Alignment.centerLeft,
+                                           end: Alignment.centerRight,
+                                           colors: [
+                                             Colors.tealAccent,
+                                             Colors.teal,
+                                           ]
+                                         )
+                                 ),
+                                 child: InkWell(
+                                   onTap: () {
+                                     if(_key.currentState!.validate()){
+                                       const Text("Logging In");
+                                       Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                     }
+                             },
+                                   child: Padding
+                                     (
+                                       padding: EdgeInsets.all(11.0),
+                                       child: Text('Login',
+                                           style: TextStyle(
+                                               color: Colors.white,
+                                               fontSize: 20,
+                                               fontWeight: FontWeight.bold
+                                       ),
+                                   ),
+                             ),
+                       ),
+                         ),
+                         ),
+                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      InkWell(
+                        onTap: () => moveToSignIn(context),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(15, 15, 30, 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Dont have an acoount ?',
+                                style: TextStyle(
+                                    color: Colors.orangeAccent[700]
+                                ),
+                              ),
+                              Text(' Sign Up',
+                                style: TextStyle(
+                                    color: Colors.cyan,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                ],
+                    ),
+            ),
+            ],
         ),
+          ),
       ),
     ),
     );
+    }
   }
-}
