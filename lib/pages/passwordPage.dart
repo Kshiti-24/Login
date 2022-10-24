@@ -13,6 +13,7 @@ class PasswordPage extends StatefulWidget {
 class _PasswordPageState extends State<PasswordPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
+  bool _isHidden = true;
   String password="";
   var confirmpass;
   moveToHome(BuildContext context) async {
@@ -66,12 +67,18 @@ class _PasswordPageState extends State<PasswordPage> {
                         Container(
                             width: 250,
                             child: TextFormField(
-                              obscureText: true,
+                              obscureText: _isHidden,
                               decoration: InputDecoration(
                                 labelText: 'New Password',
                                 suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
                                 ),
                                 hintText: 'Enter your new password',
+                                  suffix: InkWell(
+                                    onTap: _togglePasswordView,
+                                    child: Icon(
+                                      _isHidden ? Icons.visibility_off : Icons.visibility,
+                                    ),
+                                  )
                               ),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (value) {
@@ -139,6 +146,8 @@ class _PasswordPageState extends State<PasswordPage> {
                               child: InkWell(
                                 onTap: () {
                                   if(_key.currentState!.validate()){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Password changed successfully')));
                                     const Text("Setting new password");
                                     Navigator.pushNamed(context, MyRoutes.loginRoute);
                                   }
@@ -168,5 +177,10 @@ class _PasswordPageState extends State<PasswordPage> {
         ),
       ),
     );
+  }
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }

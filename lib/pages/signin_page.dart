@@ -14,6 +14,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
+  bool _isHidden = true;
   String email="";
   String password="";
   String username="";
@@ -126,12 +127,18 @@ class _SignInPageState extends State<SignInPage> {
                         Container(
                             width: 250,
                             child: TextFormField(
-                              obscureText: true,
+                              obscureText: _isHidden,
                               decoration: InputDecoration(
                                 labelText: 'Password',
                                 suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
                                 ),
                                 hintText: 'Enter your password',
+                                  suffix: InkWell(
+                                    onTap: _togglePasswordView,
+                                    child: Icon(
+                                      _isHidden ? Icons.visibility_off : Icons.visibility,
+                                    ),
+                                  )
                               ),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (value) {
@@ -203,6 +210,8 @@ class _SignInPageState extends State<SignInPage> {
                               child: InkWell(
                                 onTap: () {
                                   if(_key.currentState!.validate()){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Please verify your email')));
                                     const Text("Signing Up");
                                     Navigator.pushNamed(context, MyRoutes.verifyRoute);
                                   }
@@ -258,5 +267,10 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
+  }
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }

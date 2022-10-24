@@ -118,6 +118,8 @@ class _VerifyPageState extends State<VerifyPage> {
                               child: InkWell(
                                 onTap: () {
                                   if(_key.currentState!.validate()){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Signed Up successfully')));
                                     const Text("Verifying Email");
                                     Navigator.pushNamed(context, MyRoutes.homeRoute);
                                   }

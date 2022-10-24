@@ -12,9 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _globalKey = GlobalKey<ScaffoldMessengerState>();
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
+  bool _isHidden = true;
   String email="";
   String password="";
 
@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
   }
-
   @override
   Widget build(BuildContext context) {
     final double height= MediaQuery.of(context).size.height;
@@ -110,12 +109,17 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                       width: 250,
                       child: TextFormField(
-                        obscureText: true,
+                        obscureText: _isHidden,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
-                          ),
                           hintText: 'Enter your password',
+                          suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden ? Icons.visibility_off : Icons.visibility,
+                            ),
+                          )
                         ),
                        autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
@@ -175,10 +179,13 @@ class _LoginPageState extends State<LoginPage> {
                                  child: InkWell(
                                    onTap: () {
                                      if(_key.currentState!.validate()){
+                                       ScaffoldMessenger.of(context).showSnackBar(
+                                           SnackBar(content: Text('Logged In successfully')));
                                        const Text("Logging In");
                                        Navigator.pushNamed(context, MyRoutes.homeRoute);
                                      }
                              },
+
                                    child: Padding
                                      (
                                        padding: EdgeInsets.all(11.0),
@@ -230,4 +237,9 @@ class _LoginPageState extends State<LoginPage> {
     ),
     );
     }
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
   }
