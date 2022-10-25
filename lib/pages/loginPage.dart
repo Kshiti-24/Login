@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                                        if (result != null) {
                                          print("Success");
                                          print(result.email);
-                                         Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                         Navigator.pushNamed(context, MyRoutes.newHomeRoute);
                                        }
                                        const Text("Logging In");
                                      }

@@ -140,7 +140,7 @@ class _VerifyPageState extends State<VerifyPage> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('Signed Up successfully')));
                                     const Text("Verifying Email");
-                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                    Navigator.pushNamed(context, MyRoutes.newHomeRoute);
                                   }
                                 },
                                 child: Padding
