@@ -5,4 +5,6 @@ class MyRoutes{
   static String passwordRoute="/password";
   static String verifyRoute="/verify";
   static String newHomeRoute="/newhome";
+  static String otpRoute="/otp";
+  static String newloginRoute="/newlogin";
 }

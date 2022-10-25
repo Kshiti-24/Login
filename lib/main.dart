@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/pages/homePage.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/pages/loginPage.dart';
+import 'package:login_ui/pages/newloginPage.dart';
+import 'package:login_ui/pages/otp.dart';
 import 'package:login_ui/pages/verify.dart';
 import 'package:login_ui/pages/welcomePage.dart';
 import 'package:login_ui/utils/routes.dart';
@@ -12,7 +14,6 @@ import 'package:login_ui/pages/signin_page.dart';
 import 'package:login_ui/pages/passwordPage.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/pages/verify.dart';
-
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
         MyRoutes.passwordRoute: (context) => PasswordPage(),
         MyRoutes.verifyRoute: (context) => VerifyPage(),
         MyRoutes.newHomeRoute: (context) => NewHomePage(),
+        MyRoutes.otpRoute: (context) => OtpPage(),
+        MyRoutes.newloginRoute: (context) => NewLoginPage(),
       },
     );
   }

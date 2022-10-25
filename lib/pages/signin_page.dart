@@ -26,6 +26,7 @@ class _SignInPageState extends State<SignInPage> {
   String password="";
   String username="";
   String phone="";
+  bool loading = false;
   final auth=FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -200,7 +201,7 @@ class _SignInPageState extends State<SignInPage> {
                             )
                         ),
                         SizedBox(height: 20,),
-                        // ElevatedButton(
+                        loading ? CircularProgressIndicator() :
                         Material(
                           child: GestureDetector
                             (
@@ -221,6 +222,9 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               child: InkWell(
                                 onTap: () async {
+                                  setState(() {
+                                    loading=true;
+                                  });
                                   if(_key.currentState!.validate()) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text(
@@ -236,6 +240,9 @@ class _SignInPageState extends State<SignInPage> {
                                     }
                                     const Text("Signing Up");
                                   }
+                                  setState(() {
+                                    loading=false;
+                                  });
                                 },
                                 child: Padding
                                   (

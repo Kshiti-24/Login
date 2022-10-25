@@ -11,7 +11,19 @@ class NewHomePage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Dashboard")
+          title: const Text("Dashboard"),
+        centerTitle: true,
+        backgroundColor: Colors.pink,
+        actions: [
+          TextButton.icon(onPressed: (){
+            FirebaseAuth.instance.signOut();
+            Navigator.pushNamed(context, MyRoutes.loginRoute);
+          },
+              icon: Icon(Icons.logout),
+              label: Text('Log Out'),
+            style: TextButton.styleFrom(),
+          ),
+        ],
       ),
 
       body:Center(
@@ -25,13 +37,6 @@ class NewHomePage extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold
               ),
-            ),
-            ElevatedButton(
-                child: Text('Log out'),
-                onPressed: (){
-                FirebaseAuth.instance.signOut();
-                Navigator.pushNamed(context, MyRoutes.loginRoute);
-                },
             ),
           ],
         ),
