@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/services/auth._service.dart';
 import 'package:login_ui/utils/routes.dart';
+import 'package:flutter/src/material/scaffold.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ import 'package:login_ui/services/auth._service.dart';
 class SignInPage extends StatefulWidget {
 
 
-  SignInPage({Key? key}) : super(key: key);
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -221,11 +222,13 @@ class _SignInPageState extends State<SignInPage> {
                                   if(_key.currentState!.validate()){
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('Please verify your email')));
+                                    User? result = await AuthService().register(emailController.text, passwordController.text,context);
+                                    if(result != null){
+                                      print("Success");
+                                      print(result.email);
+                                    }
                                     const Text("Signing Up");
                                     Navigator.pushNamed(context, MyRoutes.verifyRoute);
-                                  }
-                                  else{
-                                    User? result = await AuthService().register(emailController.text, passwordController.text);
                                   }
                                 },
                                 child: Padding

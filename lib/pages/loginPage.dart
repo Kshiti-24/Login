@@ -4,6 +4,10 @@ import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
 import 'package:flutter/src/material/scaffold.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_ui/services/auth._service.dart';
+import 'package:login_ui/pages/loginPage.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -17,6 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   bool _isHidden = true;
   String email="";
   String password="";
+  final auth=FirebaseAuth.instance;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   moveToHome(BuildContext context) async {
       await Navigator.pushNamed(context, MyRoutes.homeRoute);
@@ -84,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     width: 250,
                     child: TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: 'Email Address',
                         suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
@@ -109,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                       width: 250,
                       child: TextFormField(
+                        controller: passwordController,
                         obscureText: _isHidden,
                         decoration: InputDecoration(
                           labelText: 'Password',
@@ -177,14 +186,28 @@ class _LoginPageState extends State<LoginPage> {
                                          )
                                  ),
                                  child: InkWell(
-                                   onTap: () {
-                                     if(_key.currentState!.validate()){
-                                       ScaffoldMessenger.of(context).showSnackBar(
-                                           SnackBar(content: Text('Logged In successfully')));
+                                   onTap: () async {
+                                     if (_key.currentState!.validate()) {
+                                       ScaffoldMessenger.of(context)
+                                           .showSnackBar(
+                                           SnackBar(content: Text(
+                                               'Logged In successfully')));
+                                       User? result = await AuthService()
+                                           .login(emailController.text,
+                                           passwordController.text, context);
+                                       if (result != null) {
+                                         print("Success");
+                                         print(result.email);
+                                       }
                                        const Text("Logging In");
-                                       Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                       auth.signInWithEmailAndPassword(
+                                           email: email, password: password)
+                                           .then((_) {
+                                         Navigator.pushNamed(
+                                             context, MyRoutes.homeRoute);
+                                       });
                                      }
-                             },
+                                   },
 
                                    child: Padding
                                      (
