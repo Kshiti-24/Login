@@ -8,12 +8,14 @@ import 'package:login_ui/pages/newloginPage.dart';
 import 'package:login_ui/pages/otp.dart';
 import 'package:login_ui/pages/verify.dart';
 import 'package:login_ui/pages/welcomePage.dart';
+import 'package:login_ui/services/auth._service.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:login_ui/widgets/themes.dart';
 import 'package:login_ui/pages/signin_page.dart';
 import 'package:login_ui/pages/passwordPage.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/pages/verify.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,9 +33,17 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme:MyTheme.lightTheme(context),
       darkTheme:MyTheme.darkTheme(context),
-      initialRoute: "/",
+      home: StreamBuilder(
+        stream: AuthService().firebaseAuth.authStateChanges(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            return NewHomePage();
+          }
+          else{
+            return WelcomePage();
+          }
+        }),
       routes: {
-        "/": (context) => WelcomePage(),
         MyRoutes.loginRoute: (context) => LoginPage(),
         MyRoutes.homeRoute: (context) => HomePage(),
         MyRoutes.signInRoute: (context) => SignInPage(),

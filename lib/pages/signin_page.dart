@@ -226,9 +226,6 @@ class _SignInPageState extends State<SignInPage> {
                                     loading=true;
                                   });
                                   if(_key.currentState!.validate()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(
-                                            'Please verify your email')));
                                     User? result = await AuthService().register(
                                         emailController.text,
                                         passwordController.text, context);
@@ -237,6 +234,9 @@ class _SignInPageState extends State<SignInPage> {
                                       print(result.email);
                                       Navigator.pushNamed(
                                           context, MyRoutes.verifyRoute);
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(
+                                              'Please verify your email')));
                                     }
                                     const Text("Signing Up");
                                   }

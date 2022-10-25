@@ -29,12 +29,40 @@ class NewHomePage extends StatelessWidget {
       body:Center(
         child:Column(
           children: [
-            Text("Welcome\nSigned in as:"),
-            SizedBox(height: 8),
+            SizedBox(height: 30,),
+            Text("Welcome",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 20,),
+            Text("Email :",),
+            SizedBox(height: 11,),
             Text(
               user.email!,
               style: const TextStyle(
                   fontSize: 20,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 20,),
+            Text(
+              "User Id"
+            ),
+            SizedBox(height: 11,),
+            Text(
+              user.uid,
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 30,),
+            Text("Check Drawer",
+              style: const TextStyle(
+                color: Colors.indigo,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold
               ),
             ),

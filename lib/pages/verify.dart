@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
@@ -137,10 +138,10 @@ class _VerifyPageState extends State<VerifyPage> {
                                 onTap: () {
                                   if(_key.currentState!.validate()){
                                     verifyEmail();
+                                    const Text("Verifying Email");
+                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => NewHomePage()), (route) => false);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('Signed Up successfully')));
-                                    const Text("Verifying Email");
-                                    Navigator.pushNamed(context, MyRoutes.newHomeRoute);
                                   }
                                 },
                                 child: Padding

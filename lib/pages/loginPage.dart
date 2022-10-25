@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
@@ -199,7 +200,8 @@ class _LoginPageState extends State<LoginPage> {
                                        if (result != null) {
                                          print("Success");
                                          print(result.email);
-                                         Navigator.pushNamed(context, MyRoutes.newHomeRoute);
+                                         // Navigator.pushNamed(context, MyRoutes.newHomeRoute);
+                                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => NewHomePage()), (route) => false);
                                          ScaffoldMessenger.of(context)
                                              .showSnackBar(
                                              SnackBar(content: Text(
