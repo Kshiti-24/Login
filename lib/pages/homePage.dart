@@ -36,7 +36,6 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
         // vsync uses singleTicketProvider state mixin.
         vsync: this,
         behaviour: RandomParticleBehaviour(options: particles),
-
         child: Center(
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -71,6 +70,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
               ),
             ],
           ),
+
         ),
       ),
       drawer: MyDrawer(

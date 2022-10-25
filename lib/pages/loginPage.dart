@@ -198,14 +198,9 @@ class _LoginPageState extends State<LoginPage> {
                                        if (result != null) {
                                          print("Success");
                                          print(result.email);
+                                         Navigator.pushNamed(context, MyRoutes.homeRoute);
                                        }
                                        const Text("Logging In");
-                                       auth.signInWithEmailAndPassword(
-                                           email: email, password: password)
-                                           .then((_) {
-                                         Navigator.pushNamed(
-                                             context, MyRoutes.homeRoute);
-                                       });
                                      }
                                    },
 

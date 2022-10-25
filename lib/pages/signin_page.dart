@@ -8,6 +8,7 @@ import 'package:login_ui/pages/homePage.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:login_ui/services/auth._service.dart';
+import 'package:login_ui/pages/signin_page.dart';
 class SignInPage extends StatefulWidget {
 
 
@@ -25,6 +26,7 @@ class _SignInPageState extends State<SignInPage> {
   String password="";
   String username="";
   String phone="";
+  final auth=FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   moveToHome(BuildContext context) async {
@@ -219,16 +221,20 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               child: InkWell(
                                 onTap: () async {
-                                  if(_key.currentState!.validate()){
+                                  if(_key.currentState!.validate()) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Please verify your email')));
-                                    User? result = await AuthService().register(emailController.text, passwordController.text,context);
-                                    if(result != null){
+                                        SnackBar(content: Text(
+                                            'Please verify your email')));
+                                    User? result = await AuthService().register(
+                                        emailController.text,
+                                        passwordController.text, context);
+                                    if (result != null) {
                                       print("Success");
                                       print(result.email);
+                                      Navigator.pushNamed(
+                                          context, MyRoutes.verifyRoute);
                                     }
                                     const Text("Signing Up");
-                                    Navigator.pushNamed(context, MyRoutes.verifyRoute);
                                   }
                                 },
                                 child: Padding

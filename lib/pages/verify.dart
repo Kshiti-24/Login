@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/pages/homePage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_ui/services/auth._service.dart';
+import 'package:login_ui/pages/signin_page.dart';
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
 
@@ -11,6 +15,7 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
+  User? user=FirebaseAuth.instance.currentUser;
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   String email="";
@@ -22,6 +27,19 @@ class _VerifyPageState extends State<VerifyPage> {
   }
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
+  }
+
+  verifyEmail() async{
+    if(user!=null && !user!.emailVerified){
+      await user!.sendEmailVerification();
+      print('Verification Email has been sent');
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Verification Email has been sent',
+            style: TextStyle(fontSize: 18.0,color: Colors.amber),
+          ),
+      ),);
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -118,6 +136,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               child: InkWell(
                                 onTap: () {
                                   if(_key.currentState!.validate()){
+                                    verifyEmail();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text('Signed Up successfully')));
                                     const Text("Verifying Email");
