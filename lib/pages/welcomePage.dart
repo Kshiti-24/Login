@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
@@ -66,12 +67,17 @@ class _WelcomePageState extends State<WelcomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: 15,),
-                        Text('Namaste',
-                          style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        WavyAnimatedText('Welcome',
+                            textStyle: TextStyle(
+                              color: Colors.indigo,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        ],
+                        repeatForever : true,
+                    ),
                         SizedBox(height: 10,),
                         Text('Select any one of them',
                           style: TextStyle(

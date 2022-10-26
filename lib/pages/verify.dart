@@ -5,6 +5,7 @@ import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'dart:async';
 import 'package:login_ui/utils/utils.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
 
@@ -115,6 +116,18 @@ class _VerifyPageState extends State<VerifyPage> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
+                  ),
+                  SizedBox(height: 10,),
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      WavyAnimatedText('Authentication',
+                          textStyle: TextStyle(
+                            color: Colors.indigo,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          )),
+                    ],
+                    repeatForever : true,
                   ),
                   SizedBox(height: 10,),
                   Container(

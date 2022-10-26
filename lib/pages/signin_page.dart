@@ -5,6 +5,7 @@ import 'package:login_ui/utils/routes.dart';
 import 'package:flutter/src/material/scaffold.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 class SignInPage extends StatefulWidget {
 
 
@@ -67,11 +68,16 @@ class _SignInPageState extends State<SignInPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: 5,),
-                        Text('Greetings',
-                          style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold
-                          ),
+                        AnimatedTextKit(
+                          animatedTexts: [
+                            WavyAnimatedText('Greetings',
+                                textStyle: TextStyle(
+                                  color: Colors.indigo,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                )),
+                          ],
+                          repeatForever : true,
                         ),
                         SizedBox(height: 5,),
                         Text('Enter your details to Sign Up',

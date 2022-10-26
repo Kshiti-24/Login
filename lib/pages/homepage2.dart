@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:login_ui/widgets/drawer.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class NewHomePage extends StatelessWidget {
   const NewHomePage({Key? key}) : super(key: key);
@@ -30,11 +31,23 @@ class NewHomePage extends StatelessWidget {
         child:Column(
           children: [
             SizedBox(height: 30,),
-            Text("Welcome",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold
-              ),
+            AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText('Welcome',
+                    textStyle: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 30,
+                    )),
+                WavyAnimatedText('Your details',
+                    textStyle: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 30,
+                    )),
+              ],
+              repeatForever: true,
+              onTap: () {
+                print("Tap Event");
+              },
             ),
             SizedBox(height: 20,),
             Text("Email :",),
@@ -70,6 +83,44 @@ class NewHomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold
                 ),
               ),
+            ),
+
+            AnimatedTextKit(
+              animatedTexts: [
+                RotateAnimatedText('Eat',
+                    textStyle: TextStyle(
+                        letterSpacing: 3,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange)),
+                RotateAnimatedText('Sleep',
+                    textStyle: TextStyle(
+                        letterSpacing: 3,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange)),
+                RotateAnimatedText(
+                  'Code',
+                  textStyle: TextStyle(
+                      letterSpacing: 3,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange
+                  ),
+                ),
+                RotateAnimatedText(
+                  'Repeat',
+                  textStyle: TextStyle(
+                      letterSpacing: 3,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange
+                  ),
+                ),
+              ],
+              isRepeatingAnimation: true,
+              totalRepeatCount: 100,
+              pause: Duration(milliseconds: 1000),
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:login_ui/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:login_ui/utils/utils.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:login_ui/services/auth._service.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 class PasswordPage extends StatefulWidget {
@@ -78,6 +79,18 @@ class _PasswordPageState extends State<PasswordPage> {
                           ),
                         ),
                         SizedBox(height: 20,),
+                        AnimatedTextKit(
+                          animatedTexts: [
+                            WavyAnimatedText('No Problem',
+                                textStyle: TextStyle(
+                                  color: Colors.indigo,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                )),
+                          ],
+                          repeatForever : true,
+                        ),
+                        SizedBox(height: 20,),
                         Container(
                             width: 250,
                             child: TextFormField(
@@ -95,7 +108,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           style: TextButton.styleFrom(minimumSize: Size(100, 40)),
                           icon: Icon(Icons.email_outlined),
                           label: (const Text(
-                            'Reset Password',
+                            'Send Link',
                             style: TextStyle(fontSize: 24),
                           )),
                           onPressed: () => resetPassword(),

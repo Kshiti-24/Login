@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart  ';
 import 'package:animated_background/animated_background.dart';
 import 'package:login_ui/widgets/drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_ui/widgets/drawer.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,7 +25,6 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
     spawnMinSpeed: 30,
     spawnMinRadius: 7.0,
   );
-
   final String name="Kshitiz Agarwal";
 
   @override
@@ -36,7 +37,6 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
         // vsync uses singleTicketProvider state mixin.
         vsync: this,
         behaviour: RandomParticleBehaviour(options: particles),
-        child: Center(
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
@@ -44,7 +44,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   const SizedBox(
-                    width: 20.0,
+                    width: 5.0,
                     height: 100.0,
                   ),
                   DefaultTextStyle(
@@ -54,23 +54,21 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
                     ),
                     child: AnimatedTextKit(
                       animatedTexts: [
-                        TyperAnimatedText('Kshitiz Agarwal',
-                          textStyle: GoogleFonts.aladin(
-                            color: Colors.amber,
-                            fontSize: 60.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        TyperAnimatedText('Created by Kshitiz Agarwal ',
+                            textStyle: const TextStyle(
+                                fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.indigo,
+                            )
                         ),
                       ],
-                      isRepeatingAnimation: true,
-                      totalRepeatCount: 10,
+                      repeatForever: true,
                     ),
                   ),
                 ],
               ),
             ],
           ),
-        ),
       ),
       drawer: MyDrawer(
       ),

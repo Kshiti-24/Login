@@ -6,6 +6,7 @@ import 'package:flutter/src/material/scaffold.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:login_ui/services/auth._service.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -73,11 +74,16 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(height: 30,),
-                      Text('Greetings',
-                        style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold
-                        ),
+                      AnimatedTextKit(
+                        animatedTexts: [
+                          WavyAnimatedText('Greetings',
+                              textStyle: TextStyle(
+                                color: Colors.indigo,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                              )),
+                        ],
+                        repeatForever : true,
                       ),
                   SizedBox(height: 10,),
                   Text('Enter your details to login',
