@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/utils/routes.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:login_ui/pages/homePage.dart';
 import 'package:flutter/src/material/scaffold.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:login_ui/services/auth._service.dart';
-import 'package:login_ui/pages/loginPage.dart';
-import 'package:email_auth/email_auth.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 

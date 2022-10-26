@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/utils/routes.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:login_ui/pages/homePage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:login_ui/services/auth._service.dart';
-import 'package:login_ui/pages/signin_page.dart';
+import 'dart:async';
+import 'package:login_ui/utils/utils.dart';
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
 
@@ -30,21 +27,70 @@ class _VerifyPageState extends State<VerifyPage> {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
   }
 
-  verifyEmail() async{
-    if(user!=null && !user!.emailVerified){
-      await user!.sendEmailVerification();
-      print('Verification Email has been sent');
+  // verifyEmail() async{
+  //   if(user!=null && !user!.emailVerified){
+  //     await user!.sendEmailVerification();
+  //     print('Verification Email has been sent');
+  //
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //         content: Text('Verification Email has been sent',
+  //           style: TextStyle(fontSize: 18.0,color: Colors.amber),
+  //         ),
+  //     ),);
+  //   }
+  // }
+  bool isEmailVerified = false;
+  Timer? timer;
+  bool canResendEmail = false;
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Verification Email has been sent',
-            style: TextStyle(fontSize: 18.0,color: Colors.amber),
-          ),
-      ),);
+  @override
+  void initState() {
+    super.initState();
+
+    // user needs to be created before
+    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+
+    if(!isEmailVerified) {
+      sendVerificationEmail();
+
+      timer = Timer.periodic(
+        Duration(seconds: 3),
+            (_) => checkEmailVerified(),
+      );
     }
   }
+
+  Future sendVerificationEmail() async{
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
+
+      setState(() => canResendEmail = false);
+      await Future.delayed(Duration(seconds: 5));
+      setState(() => canResendEmail = true);
+
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.toString());
+    }
+
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  Future checkEmailVerified() async {
+    await FirebaseAuth.instance.currentUser!.reload();
+    setState(() {
+      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+    if(isEmailVerified) timer?.cancel();
+  }
+  @override
+  Widget build(BuildContext context) => isEmailVerified ? NewHomePage() :
+   Scaffold(
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -72,7 +118,7 @@ class _VerifyPageState extends State<VerifyPage> {
                   ),
                   SizedBox(height: 10,),
                   Container(
-                    height: 230,
+                    height: 290,
                     width: 325,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -98,67 +144,34 @@ class _VerifyPageState extends State<VerifyPage> {
                                 ),
                                 hintText: 'Enter your email',
                               ),
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                validator: (value) {
-                                  if(value!.isEmpty){
-                                    return 'Email cannot be empty';
-                                  }
-                                  if (value!.isEmpty ||
-                                      !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$').hasMatch(
-                                          value!)) {
-                                    return 'Enter Correct Email';
-                                  }
-                                  else {
-                                    return null;
-                                  }
-                                }
+                              //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                              //   validator: (value) {
+                              //     if(value!.isEmpty){
+                              //       return 'Email cannot be empty';
+                              //     }
+                              //     if (value!.isEmpty ||
+                              //         !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$').hasMatch(
+                              //             value!)) {
+                              //       return 'Enter Correct Email';
+                              //     }
+                              //     else {
+                              //       return null;
+                              //     }
+                              //   }
                             )
                         ),
                         SizedBox(height: 30,),
-                        // ElevatedButton(
-                        Material(
-                          child: GestureDetector
-                            (
-                            child: Container
-                              (
-                              alignment: Alignment.center,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.tealAccent,
-                                        Colors.teal,
-                                      ]
-                                  )
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  if(_key.currentState!.validate()){
-                                    verifyEmail();
-                                    const Text("Verifying Email");
-                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => NewHomePage()), (route) => false);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Signed Up successfully')));
-                                  }
-                                },
-                                child: Padding
-                                  (
-                                  padding: EdgeInsets.all(11.0),
-                                  child: Text('Verify Email',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
-                                    ),
+                        ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: Size.fromHeight(50),
                                   ),
-                                ),
+                                  icon: const Icon(Icons.email, size: 32),
+                                  label: const Text(
+                                    'Resend Email',
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                            onPressed: canResendEmail ? sendVerificationEmail : null
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -170,4 +183,3 @@ class _VerifyPageState extends State<VerifyPage> {
       ),
     );
   }
-}

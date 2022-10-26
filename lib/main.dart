@@ -4,23 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/pages/homePage.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/pages/loginPage.dart';
+import 'package:login_ui/pages/loginPage2.dart';
 import 'package:login_ui/pages/newloginPage.dart';
 import 'package:login_ui/pages/otp.dart';
 import 'package:login_ui/pages/verify.dart';
 import 'package:login_ui/pages/welcomePage.dart';
 import 'package:login_ui/services/auth._service.dart';
 import 'package:login_ui/utils/routes.dart';
+import 'package:login_ui/widgets/drawer.dart';
 import 'package:login_ui/widgets/themes.dart';
 import 'package:login_ui/pages/signin_page.dart';
 import 'package:login_ui/pages/passwordPage.dart';
-import 'package:login_ui/pages/homepage2.dart';
-import 'package:login_ui/pages/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:login_ui/utils/utils.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
     int num=1;
     String name="Kshitiz Agarwal";
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner:false,
       themeMode: ThemeMode.light,
       theme:MyTheme.lightTheme(context),
@@ -52,8 +56,43 @@ class MyApp extends StatelessWidget {
         MyRoutes.newHomeRoute: (context) => NewHomePage(),
         MyRoutes.otpRoute: (context) => OtpPage(),
         MyRoutes.newloginRoute: (context) => NewLoginPage(),
+        MyRoutes.addloginRoute: (context) => AddLoginPage(),
+        MyRoutes.welcomeRoute: (context) => WelcomePage(),
+        MyRoutes.drawerRoute: (context) => MyDrawer(),
       },
     );
   }
 }
+class InitializerWidget extends StatefulWidget {
+  const InitializerWidget({Key? key}) : super(key: key);
+
+  @override
+  State<InitializerWidget> createState() => _InitializerWidgetState();
+}
+
+class _InitializerWidgetState extends State<InitializerWidget> {
+  late FirebaseAuth _auth;
+
+  late User _user;
+
+  bool isLoading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _auth = FirebaseAuth.instance;
+    _user = _auth.currentUser!;
+    bool isLoading = false;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return isLoading ? Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    ) : _user == null ? NewLoginPage() : NewHomePage();
+  }
+}
+
+
 

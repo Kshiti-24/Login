@@ -70,7 +70,6 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
               ),
             ],
           ),
-
         ),
       ),
       drawer: MyDrawer(

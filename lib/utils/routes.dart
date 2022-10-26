@@ -7,4 +7,7 @@ class MyRoutes{
   static String newHomeRoute="/newhome";
   static String otpRoute="/otp";
   static String newloginRoute="/newlogin";
+  static String addloginRoute="/addlogin";
+  static String welcomeRoute="/welcome";
+  static String drawerRoute="/drawer";
 }

@@ -3,12 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/services/auth._service.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:flutter/src/material/scaffold.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:login_ui/pages/homePage.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:login_ui/services/auth._service.dart';
-import 'package:login_ui/pages/signin_page.dart';
 class SignInPage extends StatefulWidget {
 
 

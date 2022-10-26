@@ -17,7 +17,7 @@ class NewHomePage extends StatelessWidget {
         actions: [
           TextButton.icon(onPressed: (){
             FirebaseAuth.instance.signOut();
-            Navigator.pushNamed(context, MyRoutes.loginRoute);
+            Navigator.pushNamed(context, MyRoutes.welcomeRoute);
           },
               icon: Icon(Icons.logout),
               label: Text('Log Out'),
@@ -59,11 +59,16 @@ class NewHomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30,),
-            Text("Check Drawer",
-              style: const TextStyle(
-                color: Colors.indigo,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, MyRoutes.drawerRoute);
+              },
+              child: Text("Check Drawer",
+                style: const TextStyle(
+                  color: Colors.indigo,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold
+                ),
               ),
             ),
           ],

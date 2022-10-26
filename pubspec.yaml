@@ -37,12 +37,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   animated_background: ^2.0.0
   google_fonts: ^3.0.1
-  font_awesome_flutter: ^10.2.1
   animated_text_kit: ^4.2.2
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
   email_auth: ^1.0.0
   pinput: ^2.2.16
+  google_sign_in: ^5.4.2
+  google_sign_in_web: ^0.10.2
+  flutter_signin_button: ^2.0.0
+  fluttertoast: ^8.1.1
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_test:
