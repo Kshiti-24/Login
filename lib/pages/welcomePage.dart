@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:lottie/lottie.dart';
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
@@ -46,16 +47,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 5,),
-                  Image.asset('assets/images/welcome.png'),
-                  SizedBox(height: 0,),
-                  Text('My First App',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(height: 10,),
+                  // Image.asset('assets/images/welcome.png'),
+                  Lottie.asset('assets/images/welcome.json'),
                   Container(
                     height: 450,
                     width: 325,
@@ -122,7 +115,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 25,),
                         // ElevatedButton(
                         Material(
                           child: GestureDetector
@@ -160,7 +153,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 25,
                         ),
                         Material(
                           child: GestureDetector
@@ -197,7 +190,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 25,),
                         Material(
                           child: GestureDetector
                             (

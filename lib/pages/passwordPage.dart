@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:login_ui/utils/utils.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:login_ui/services/auth._service.dart';
+import 'package:lottie/lottie.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 class PasswordPage extends StatefulWidget {
   const PasswordPage({Key? key}) : super(key: key);
@@ -59,7 +60,8 @@ class _PasswordPageState extends State<PasswordPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 30,),
-                  Image.asset('assets/images/forgot.png'),
+                  // Image.asset('assets/images/forgot.png'),
+                  Lottie.asset('assets/images/forgot.json'),
                   SizedBox(height: 10,),
                   Container(
                     height: 320,

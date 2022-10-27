@@ -47,6 +47,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   fluttertoast: ^8.1.1
   pin_code_fields: ^7.4.0
+  lottie: ^1.4.3
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,12 @@ flutter:
     - assets/images/forgot.png
     - assets/images/verify.png
     - assets/images/welcome.png
+    - assets/images/forgot.json
+    - assets/images/sign.json
+    - assets/images/login.json
+    - assets/images/verify.json
+    - assets/images/welcome.json
+    - assets/images/google.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
