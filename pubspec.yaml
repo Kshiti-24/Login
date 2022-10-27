@@ -84,6 +84,8 @@ flutter:
     - assets/images/verify.json
     - assets/images/welcome.json
     - assets/images/google.json
+    - assets/images/register.json
+    - assets/images/register2.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

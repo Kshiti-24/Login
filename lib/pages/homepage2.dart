@@ -4,9 +4,14 @@ import 'package:login_ui/utils/routes.dart';
 import 'package:login_ui/widgets/drawer.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
-class NewHomePage extends StatelessWidget {
+class NewHomePage extends StatefulWidget {
   const NewHomePage({Key? key}) : super(key: key);
 
+  @override
+  State<NewHomePage> createState() => _NewHomePageState();
+}
+
+class _NewHomePageState extends State<NewHomePage> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
@@ -47,7 +52,7 @@ class NewHomePage extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: 30,),
+                  Lottie.asset('assets/images/register.json'),
                   AnimatedTextKit(
                     animatedTexts: [
                       WavyAnimatedText('Welcome',
@@ -66,7 +71,6 @@ class NewHomePage extends StatelessWidget {
                       print("Tap Event");
                     },
                   ),
-                  SizedBox(height: 20,),
                   Text("Email :",),
                   SizedBox(height: 11,),
                   Text(
@@ -76,7 +80,7 @@ class NewHomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 5,),
                   Text(
                       "User Id"
                   ),
@@ -88,7 +92,7 @@ class NewHomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 11,),
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, MyRoutes.drawerRoute);
