@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_ui/utils/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl="https://media-exp1.licdn.com/dms/image/C4E03AQEUzuySJWLvrw/profile-displayphoto-shrink_800_800/0/1638700706814?e=2147483647&v=beta&t=4fS_HTAIS_d_42UYO2uyPb2togSOr_utvXa8bJUf1N0";
+    final user = FirebaseAuth.instance.currentUser!;
+    final imageUrl =
+        "https://media-exp1.licdn.com/dms/image/C4E03AQEUzuySJWLvrw/profile-displayphoto-shrink_800_800/0/1638700706814?e=2147483647&v=beta&t=4fS_HTAIS_d_42UYO2uyPb2togSOr_utvXa8bJUf1N0";
     return Drawer(
       child: Container(
-        color: Colors.deepPurple,
+        color: Colors.teal,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -17,10 +21,12 @@ class MyDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
                 margin: EdgeInsets.zero,
-                accountName: Text("Kshitiz Agarwal",
+                accountName: Text(
+                  user.uid,
                   style: TextStyle(color: Colors.white),
                 ),
-                accountEmail: Text("kshitizagarwal2405@gmail.com",
+                accountEmail: Text(
+                  user.email!,
                   style: TextStyle(color: Colors.white),
                 ),
                 currentAccountPicture: CircleAvatar(
@@ -40,7 +46,7 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onTap: (){
+              onTap: () {
                 Navigator.pushNamed(context, MyRoutes.homeRoute);
               },
             ),

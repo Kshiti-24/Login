@@ -17,36 +17,35 @@ import 'package:login_ui/pages/signin_page.dart';
 import 'package:login_ui/pages/passwordPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:login_ui/utils/utils.dart';
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+
 final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int num=1;
-    String name="Kshitiz Agarwal";
     return MaterialApp(
-      scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner:false,
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      theme:MyTheme.lightTheme(context),
-      darkTheme:MyTheme.darkTheme(context),
+      theme: MyTheme.lightTheme(context),
+      darkTheme: MyTheme.darkTheme(context),
       home: StreamBuilder(
-        stream: AuthService().firebaseAuth.authStateChanges(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            return NewHomePage();
-          }
-          else{
-            return WelcomePage();
-          }
-        }),
+          stream: AuthService().firebaseAuth.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return NewHomePage();
+            } else {
+              return WelcomePage();
+            }
+          }),
       routes: {
         MyRoutes.loginRoute: (context) => LoginPage(),
         MyRoutes.homeRoute: (context) => HomePage(),
@@ -63,6 +62,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class InitializerWidget extends StatefulWidget {
   const InitializerWidget({Key? key}) : super(key: key);
 
@@ -76,6 +76,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
   late User _user;
 
   bool isLoading = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -84,15 +85,17 @@ class _InitializerWidgetState extends State<InitializerWidget> {
     _user = _auth.currentUser!;
     bool isLoading = false;
   }
+
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    ) : _user == null ? NewLoginPage() : NewHomePage();
+    return isLoading
+        ? Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : _user == null
+            ? NewLoginPage()
+            : NewHomePage();
   }
 }
-
-
-

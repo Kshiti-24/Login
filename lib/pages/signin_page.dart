@@ -7,9 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
+
 class SignInPage extends StatefulWidget {
-
-
   const SignInPage({Key? key}) : super(key: key);
 
   @override
@@ -20,23 +19,27 @@ class _SignInPageState extends State<SignInPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   bool _isHidden = true;
-  String email="";
-  String password="";
-  String username="";
-  String phone="";
+  String email = "";
+  String password = "";
+  String username = "";
+  String phone = "";
   bool loading = false;
-  final auth=FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   moveToHome(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.homeRoute);
   }
+
   moveToLogin(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.loginRoute);
   }
+
   moveToVerify(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.verifyRoute);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,224 +48,233 @@ class _SignInPageState extends State<SignInPage> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Colors.yellow,Colors.orange,Colors.red]
-              )
-          ),
+            color: Colors.teal,
+              ),
           child: SingleChildScrollView(
             child: Form(
               key: _key,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 29,
+                  ),
                   // Image.asset('assets/images/sign.png'),
-                  Lottie.asset('assets/images/sign.json'),
-                  SizedBox(height: 5,),
+                  Lottie.asset('assets/images/sign.json',height: 250),
                   Container(
-                    height: 600,
-                    width: 325,
+                    height: MediaQuery.of(context).size.height*0.7,
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(90),
+                          topRight: Radius.circular(90),
+                        ),),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 29,
+                        ),
                         AnimatedTextKit(
                           animatedTexts: [
-                            WavyAnimatedText('Greetings',
+                            TyperAnimatedText('Greetings',
                                 textStyle: TextStyle(
-                                  color: Colors.indigo,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,
                                 )),
                           ],
-                          repeatForever : true,
+                          repeatForever: true,
                         ),
-                        SizedBox(height: 5,),
-                        Text('Enter your details to Sign Up',
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black26
-                          ),
+                        SizedBox(
+                          height: 18,
                         ),
-                        SizedBox(height: 1,),
+                        Text(
+                          'Enter your details to Sign Up',
+                          style: TextStyle(fontSize: 15, color: Colors.black26),
+                        ),
+                        SizedBox(
+                          height: 11,
+                        ),
                         Container(
                             width: 250,
                             child: TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Username',
-                                suffixIcon: Icon(Icons.verified_user,color: Colors.black,size: 17,
+                                decoration: InputDecoration(
+                                  labelText: 'Username',
+                                  suffixIcon: Icon(
+                                    Icons.verified_user,
+                                    color: Colors.black,
+                                    size: 17,
+                                  ),
+                                  hintText: 'Enter your username',
                                 ),
-                                hintText: 'Enter your username',
-                              ),
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
-                                if(value!.isEmpty){
-                                  return 'Username cannot be empty';
-                                }
-                                  if (value!.isEmpty ||
-                                      !RegExp(r'^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$').hasMatch(
-                                          value!)) {
-                                    return 'Enter Correct Username';
+                                  if (value!.isEmpty) {
+                                    return 'Username cannot be empty';
                                   }
-                                  else {
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$')
+                                          .hasMatch(value!)) {
+                                    return 'Enter Correct Username';
+                                  } else {
                                     return null;
                                   }
-                                }
-                            )
-                        ),
+                                })),
                         Container(
                             width: 250,
                             child: TextFormField(
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                labelText: 'Email Address',
-                                suffixIcon: Icon(Icons.email,color: Colors.black,size: 17,
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                  labelText: 'Email Address',
+                                  suffixIcon: Icon(
+                                    Icons.email,
+                                    color: Colors.black,
+                                    size: 17,
+                                  ),
+                                  hintText: 'Enter your email',
                                 ),
-                                hintText: 'Enter your email',
-                              ),
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
-                                  if(value!.isEmpty){
+                                  if (value!.isEmpty) {
                                     return 'Email cannot be empty';
                                   }
                                   if (value!.isEmpty ||
-                                      !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$').hasMatch(
-                                          value!)) {
+                                      !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$')
+                                          .hasMatch(value!)) {
                                     return 'Enter Correct Email';
-                                  }
-                                  else {
+                                  } else {
                                     return null;
                                   }
-                                }
-                            )
-                        ),
+                                })),
                         Container(
                             width: 250,
                             child: TextFormField(
-                              controller: passwordController,
-                              obscureText: _isHidden,
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                suffixIcon: Icon(Icons.lock,color: Colors.black,size: 17,
-                                ),
-                                hintText: 'Enter your password',
-                                  suffix: InkWell(
-                                    onTap: _togglePasswordView,
-                                    child: Icon(
-                                      _isHidden ? Icons.visibility_off : Icons.visibility,
+                                controller: passwordController,
+                                obscureText: _isHidden,
+                                decoration: InputDecoration(
+                                    labelText: 'Password',
+                                    suffixIcon: Icon(
+                                      Icons.lock,
+                                      color: Colors.black,
+                                      size: 17,
                                     ),
-                                  )
-                              ),
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    hintText: 'Enter your password',
+                                    suffix: InkWell(
+                                      onTap: _togglePasswordView,
+                                      child: Icon(
+                                        _isHidden
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
+                                      ),
+                                    )),
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
-                                  if(value!.isEmpty){
+                                  if (value!.isEmpty) {
                                     return 'Passsord cannot be empty';
-                                  }
-                                  else if (value.length < 8) {
+                                  } else if (value.length < 8) {
                                     return "Password must be atleast 8 characters long";
-                                  }
-                                  else if (value!.isEmpty ||
-                                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(
-                                          value!)) {
+                                  } else if (value!.isEmpty ||
+                                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                          .hasMatch(value!)) {
                                     return 'Enter Correct password';
-                                  }
-                                  else {
+                                  } else {
                                     return null;
                                   }
-                                }
-                            )
-                        ),
+                                })),
                         Container(
                             width: 250,
                             child: TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Phone Number',
-                                suffixIcon: Icon(Icons.phone,color: Colors.black,size: 17,
+                                decoration: InputDecoration(
+                                  labelText: 'Phone Number',
+                                  suffixIcon: Icon(
+                                    Icons.phone,
+                                    color: Colors.black,
+                                    size: 17,
+                                  ),
+                                  hintText: 'Enter your phone number',
                                 ),
-                                hintText: 'Enter your phone number',
-                              ),
                                 keyboardType: TextInputType.number,
                                 inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly],
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
-                                  if(value!.isEmpty){
+                                  if (value!.isEmpty) {
                                     return 'Phone number cannot be empty';
                                   }
                                   if (value!.isEmpty ||
-                                      !RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(
-                                          value!)) {
+                                      !RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)')
+                                          .hasMatch(value!)) {
                                     return 'Enter valid Phone Number';
-                                  }
-                                  else {
+                                  } else {
                                     return null;
                                   }
-                                }
-                            )
+                                })),
+                        SizedBox(
+                          height: 20,
                         ),
-                        SizedBox(height: 20,),
-                        loading ? CircularProgressIndicator() :
-                        Material(
-                          child: GestureDetector
-                            (
-                            child: Container
-                              (
-                              alignment: Alignment.center,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.tealAccent,
-                                        Colors.teal,
-                                      ]
-                                  )
-                              ),
-                              child: InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    loading=true;
-                                  });
-                                  if(_key.currentState!.validate()) {
-                                    User? result = await AuthService().register(
-                                        emailController.text,
-                                        passwordController.text, context);
-                                    if (result != null) {
-                                      print("Success");
-                                      print(result.email);
-                                      Navigator.pushNamed(
-                                          context, MyRoutes.verifyRoute);
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(
-                                              'Please verify your email')));
-                                    }
-                                    const Text("Signing Up");
-                                  }
-                                  setState(() {
-                                    loading=false;
-                                  });
-                                },
-                                child: Padding
-                                  (
-                                  padding: EdgeInsets.all(11.0),
-                                  child: Text('Sign Up',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
+                        loading
+                            ? CircularProgressIndicator()
+                            : Material(
+                                child: GestureDetector(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: 250,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              Colors.tealAccent,
+                                              Colors.teal,
+                                            ])),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        setState(() {
+                                          loading = true;
+                                        });
+                                        if (_key.currentState!.validate()) {
+                                          User? result = await AuthService()
+                                              .register(
+                                                  emailController.text,
+                                                  passwordController.text,
+                                                  context);
+                                          if (result != null) {
+                                            print("Success");
+                                            print(result.email);
+                                            Navigator.pushNamed(
+                                                context, MyRoutes.verifyRoute);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        'Please verify your email')));
+                                          }
+                                          const Text("Signing Up");
+                                        }
+                                        setState(() {
+                                          loading = false;
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(11.0),
+                                        child: Text(
+                                          'Sign Up',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -273,12 +285,13 @@ class _SignInPageState extends State<SignInPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Already have an account ?',
+                                Text(
+                                  'Already have an account ?',
                                   style: TextStyle(
-                                      color: Colors.orangeAccent[700]
-                                  ),
+                                      color: Colors.orangeAccent[700]),
                                 ),
-                                Text(' Login',
+                                Text(
+                                  ' Login',
                                   style: TextStyle(
                                     color: Colors.cyan,
                                     fontWeight: FontWeight.bold,
@@ -300,6 +313,7 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
+
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;

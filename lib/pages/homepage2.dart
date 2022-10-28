@@ -4,6 +4,7 @@ import 'package:login_ui/utils/routes.dart';
 import 'package:login_ui/widgets/drawer.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
+
 class NewHomePage extends StatefulWidget {
   const NewHomePage({Key? key}) : super(key: key);
 
@@ -19,50 +20,44 @@ class _NewHomePageState extends State<NewHomePage> {
       onWillPop: () => _onBackButtonPressed(context),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Dashboard"),
+          title: const Text("Dashboard",
+          style: TextStyle(
+            color: Colors.black,
+          ),),
           centerTitle: true,
-          backgroundColor: Colors.pink,
+          backgroundColor: Colors.white,
           actions: [
-            TextButton.icon(onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Navigator.pushNamed(context, MyRoutes.welcomeRoute);
-            },
+            TextButton.icon(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, MyRoutes.welcomeRoute);
+              },
               icon: Icon(Icons.logout),
               label: Text('Log Out'),
               style: TextButton.styleFrom(),
             ),
           ],
         ),
-
         body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Colors.limeAccent, Colors.teal]
-                )
-            ),
+                color: Colors.teal),
             child: Center(
               child: Column(
                 children: [
-                  Lottie.asset('assets/images/register.json'),
+                  Lottie.asset('assets/images/register.json',height: 250),
                   AnimatedTextKit(
                     animatedTexts: [
-                      WavyAnimatedText('Welcome',
+                      TyperAnimatedText('Welcome',
                           textStyle: TextStyle(
-                            color: Colors.teal,
+                            color: Colors.white,
                             fontSize: 30,
                           )),
-                      WavyAnimatedText('Your details',
+                      TyperAnimatedText('Your details',
                           textStyle: TextStyle(
-                            color: Colors.teal,
+                            color: Colors.white,
                             fontSize: 30,
                           )),
                     ],
@@ -71,41 +66,33 @@ class _NewHomePageState extends State<NewHomePage> {
                       print("Tap Event");
                     },
                   ),
-                  Text("Email :",),
-                  SizedBox(height: 11,),
+                  SizedBox(height: 29,),
+                  Text(
+                    "Email :",
+                  ),
+                  SizedBox(
+                    height: 11,
+                  ),
                   Text(
                     user.email!,
                     style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5,),
-                  Text(
-                      "User Id"
+                  SizedBox(
+                    height: 5,
                   ),
-                  SizedBox(height: 11,),
+                  Text("User Id"),
+                  SizedBox(
+                    height: 11,
+                  ),
                   Text(
                     user.uid,
                     style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 11,),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, MyRoutes.drawerRoute);
-                    },
-                    child: Text("Check Drawer",
-                      style: const TextStyle(
-                          color: Colors.indigo,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
+                  SizedBox(
+                    height: 11,
                   ),
-
                   AnimatedTextKit(
                     animatedTexts: [
                       RotateAnimatedText('Eat',
@@ -113,21 +100,20 @@ class _NewHomePageState extends State<NewHomePage> {
                               letterSpacing: 3,
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: Colors.orange)),
+                              color: Colors.black)),
                       RotateAnimatedText('Sleep',
                           textStyle: TextStyle(
                               letterSpacing: 3,
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: Colors.orange)),
+                              color: Colors.black)),
                       RotateAnimatedText(
                         'Code',
                         textStyle: TextStyle(
                             letterSpacing: 3,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange
-                        ),
+                            color: Colors.black),
                       ),
                       RotateAnimatedText(
                         'Repeat',
@@ -135,8 +121,7 @@ class _NewHomePageState extends State<NewHomePage> {
                             letterSpacing: 3,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange
-                        ),
+                            color: Colors.black),
                       ),
                     ],
                     isRepeatingAnimation: true,
@@ -175,8 +160,7 @@ class _NewHomePageState extends State<NewHomePage> {
               ),
             ],
           );
-        }
-    );
+        });
     return exitApp ?? false;
   }
 }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:login_ui/pages/homepage2.dart';
+
 enum MobileVerificationState {
   SHOW_MOBILE_FORM_STATE,
   SHOW_OTP_FORM_STATE,
@@ -13,7 +14,8 @@ class NewLoginPage extends StatefulWidget {
 }
 
 class _NewLoginPageState extends State<NewLoginPage> {
-  MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
 
   final phoneController = TextEditingController();
   final otpController = TextEditingController();
@@ -24,30 +26,30 @@ class _NewLoginPageState extends State<NewLoginPage> {
 
   bool showLoading = false;
 
-  void signInWithPhoneAuthCredential(PhoneAuthCredential phoneAuthCredential) async {
-
+  void signInWithPhoneAuthCredential(
+      PhoneAuthCredential phoneAuthCredential) async {
     setState(() {
       showLoading = true;
     });
     try {
-      final authCredential = await _auth.signInWithCredential(phoneAuthCredential);
+      final authCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
 
       setState(() {
         showLoading = false;
       });
 
-      if(authCredential.user != null)
-      {
-        Navigator.push(context,MaterialPageRoute(builder: (context)=> NewHomePage()));
+      if (authCredential.user != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => NewHomePage()));
       }
-
-    }on FirebaseAuthException catch (e) {
-
+    } on FirebaseAuthException catch (e) {
       setState(() {
         showLoading = false;
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
     }
   }
 
@@ -66,8 +68,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
           width: 10.0,
         ),
         TextButton(
-          onPressed: ()async {
-
+          onPressed: () async {
             setState(() {
               showLoading = true;
             });
@@ -84,7 +85,8 @@ class _NewLoginPageState extends State<NewLoginPage> {
                 setState(() {
                   showLoading = false;
                 });
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(verificationFailed.message.toString())));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(verificationFailed.message.toString())));
               },
               codeSent: (verificationId, resendingToken) async {
                 setState(() {
@@ -93,9 +95,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
                   this.verificationId = verificationId;
                 });
               },
-              codeAutoRetrievalTimeout: (verificationId) async {
-
-              },
+              codeAutoRetrievalTimeout: (verificationId) async {},
             );
           },
           child: Text(
@@ -128,10 +128,11 @@ class _NewLoginPageState extends State<NewLoginPage> {
         TextButton(
           onPressed: () async {
             PhoneAuthCredential phoneAuthCredential =
-            PhoneAuthProvider.credential(verificationId: verificationId, smsCode: otpController.text);
+                PhoneAuthProvider.credential(
+                    verificationId: verificationId,
+                    smsCode: otpController.text);
 
             signInWithPhoneAuthCredential(phoneAuthCredential);
-
           },
           child: Text(
             "VERIFY",
@@ -153,11 +154,14 @@ class _NewLoginPageState extends State<NewLoginPage> {
     return Scaffold(
         key: _scaffoldKey,
         body: Container(
-          child: showLoading ? Center(child: CircularProgressIndicator(),) : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-              ? getMobileFormWidget(context)
-              : getOtpFormWidget(context),
+          child: showLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
+                  ? getMobileFormWidget(context)
+                  : getOtpFormWidget(context),
           padding: const EdgeInsets.all(16),
-
         ));
   }
 }
