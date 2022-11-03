@@ -31,6 +31,7 @@ class _VerifyPageState extends State<VerifyPage> {
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
   }
+
   bool isEmailVerified = false;
   Timer? timer;
   bool canResendEmail = false;
@@ -139,18 +140,18 @@ class _VerifyPageState extends State<VerifyPage> {
                             GestureDetector(
                               child: InkWell(
                                 onTap: () => NewHomePage(),
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          Colors.tealAccent,
-                                          Colors.teal
-                                        ])),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 250,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            Colors.tealAccent,
+                                            Colors.teal
+                                          ])),
                                   child: Padding(
                                     padding: EdgeInsets.all(11.0),
                                     child: Text(

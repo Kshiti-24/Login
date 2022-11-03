@@ -49,7 +49,7 @@ class _SignInPageState extends State<SignInPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: Colors.teal,
-              ),
+          ),
           child: SingleChildScrollView(
             child: Form(
               key: _key,
@@ -60,16 +60,17 @@ class _SignInPageState extends State<SignInPage> {
                     height: 29,
                   ),
                   // Image.asset('assets/images/sign.png'),
-                  Lottie.asset('assets/images/sign.json',height: 250),
+                  Lottie.asset('assets/images/sign.json', height: 250),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.7,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(90),
-                          topRight: Radius.circular(90),
-                        ),),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(90),
+                        topRight: Radius.circular(90),
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -230,9 +231,9 @@ class _SignInPageState extends State<SignInPage> {
                                       if (_key.currentState!.validate()) {
                                         User? result = await AuthService()
                                             .register(
-                                            emailController.text,
-                                            passwordController.text,
-                                            context);
+                                                emailController.text,
+                                                passwordController.text,
+                                                context);
                                         if (result != null) {
                                           print("Success");
                                           print(result.email);
@@ -240,8 +241,8 @@ class _SignInPageState extends State<SignInPage> {
                                               context, MyRoutes.verifyRoute);
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'Please verify your email')));
+                                                  content: Text(
+                                                      'Please verify your email')));
                                         }
                                         const Text("Signing Up");
                                       }
@@ -249,18 +250,19 @@ class _SignInPageState extends State<SignInPage> {
                                         loading = false;
                                       });
                                     },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: 250,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            colors: [
-                                              Colors.tealAccent,
-                                              Colors.teal,
-                                            ])),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 250,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                Colors.tealAccent,
+                                                Colors.teal,
+                                              ])),
                                       child: Padding(
                                         padding: EdgeInsets.all(11.0),
                                         child: Text(

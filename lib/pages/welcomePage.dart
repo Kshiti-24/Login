@@ -15,6 +15,7 @@ class _WelcomePageState extends State<WelcomePage> {
   String name = "";
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
+
   moveToNewLogin(BuildContext context) async {
     await Navigator.pushReplacementNamed(context, MyRoutes.newloginRoute);
   }
@@ -50,17 +51,17 @@ class _WelcomePageState extends State<WelcomePage> {
                     height: 29,
                   ),
                   // Image.asset('assets/images/welcome.png'),
-                  Lottie.asset('assets/images/welcome.json',height: 250),
+                  Lottie.asset('assets/images/welcome.json', height: 250),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.7,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(90),
-                          topRight: Radius.circular(90),
-                        ),
-                        ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(90),
+                        topRight: Radius.circular(90),
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -93,17 +94,17 @@ class _WelcomePageState extends State<WelcomePage> {
                             child: InkWell(
                               onTap: () => moveToLogin(context),
                               child: Container(
-                              alignment: Alignment.center,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.tealAccent,
-                                        Colors.teal,
-                                      ])),
+                                alignment: Alignment.center,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          Colors.tealAccent,
+                                          Colors.teal,
+                                        ])),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(
@@ -126,18 +127,18 @@ class _WelcomePageState extends State<WelcomePage> {
                           child: GestureDetector(
                             child: InkWell(
                               onTap: () => moveToNewLogin(context),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.tealAccent,
-                                        Colors.teal,
-                                      ])),
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          Colors.tealAccent,
+                                          Colors.teal,
+                                        ])),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(
@@ -159,18 +160,18 @@ class _WelcomePageState extends State<WelcomePage> {
                           child: GestureDetector(
                             child: InkWell(
                               onTap: () => moveToSignIn(context),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.tealAccent,
-                                        Colors.teal,
-                                      ])),
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          Colors.tealAccent,
+                                          Colors.teal,
+                                        ])),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(
@@ -192,18 +193,18 @@ class _WelcomePageState extends State<WelcomePage> {
                           child: GestureDetector(
                             child: InkWell(
                               onTap: () => moveToAddLogin(context),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.tealAccent,
-                                        Colors.teal,
-                                      ])),
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          Colors.tealAccent,
+                                          Colors.teal,
+                                        ])),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(

@@ -9,7 +9,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    bool check=false;
+    bool check = false;
     final imageUrl =
         "https://media-exp1.licdn.com/dms/image/C4E03AQEUzuySJWLvrw/profile-displayphoto-shrink_800_800/0/1638700706814?e=2147483647&v=beta&t=4fS_HTAIS_d_42UYO2uyPb2togSOr_utvXa8bJUf1N0";
     return Drawer(
@@ -23,15 +23,16 @@ class MyDrawer extends StatelessWidget {
               child: UserAccountsDrawerHeader(
                 margin: EdgeInsets.zero,
                 accountName: Text(
-                 user.displayName ?? "Hello ",
+                  user.displayName ?? "Hello ",
                   style: TextStyle(color: Colors.black),
                 ),
                 accountEmail: Text(
-                  user.email ??  "" ,
+                  user.email ?? "",
                   style: TextStyle(color: Colors.black),
                 ),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(user.photoURL ?? 'https://cdn-icons-png.flaticon.com/512/149/149071.png'),
+                  backgroundImage: NetworkImage(user.photoURL ??
+                      'https://cdn-icons-png.flaticon.com/512/149/149071.png'),
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,

@@ -71,7 +71,7 @@ class _NewHomePageState extends State<NewHomePage> {
                     height: 29,
                   ),
                   Text(
-                   user.email != null ? "Email :" : "Phone Number : " ,
+                    user.email != null ? "Email :" : "Phone Number : ",
                   ),
                   SizedBox(
                     height: 11,
@@ -157,11 +157,11 @@ class _NewHomePageState extends State<NewHomePage> {
               ),
               TextButton(
                 onPressed: () {
-          // Navigator.of(context)
-          //     .pushNamedAndRemoveUntil("/welcome", ModalRoute.withName('/welcome'));
-          //     },
-          Navigator.of(context).pop(true);
-          },
+                  // Navigator.of(context)
+                  //     .pushNamedAndRemoveUntil("/welcome", ModalRoute.withName('/welcome'));
+                  //     },
+                  Navigator.of(context).pop(true);
+                },
                 child: const Text("Yes"),
               ),
             ],

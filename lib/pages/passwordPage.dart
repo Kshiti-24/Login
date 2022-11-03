@@ -27,6 +27,7 @@ class _PasswordPageState extends State<PasswordPage> {
   final auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();

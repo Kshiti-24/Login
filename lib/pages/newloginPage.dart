@@ -13,7 +13,7 @@ class NewLoginPage extends StatefulWidget {
 
 class _NewLoginPageState extends State<NewLoginPage> {
   GlobalKey<FormState> _key = new GlobalKey();
-  bool loading= false;
+  bool loading = false;
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
@@ -124,10 +124,9 @@ class _NewLoginPageState extends State<NewLoginPage> {
                                   if (value!.isEmpty) {
                                     return 'OTP cannot be empty';
                                   }
-                                  if(value.length!=6){
+                                  if (value.length != 6) {
                                     return "OTP should be of 6 digits";
-                                  }
-                                  else{
+                                  } else {
                                     return null;
                                   }
                                 }),
@@ -137,52 +136,54 @@ class _NewLoginPageState extends State<NewLoginPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        loading ? CircularProgressIndicator() :
-                        Material(
-                          child: GestureDetector(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  loading = true;
-                                });
-                                if(_key.currentState!.validate()) {
-                                  if (otpVisibility) {
-                                    verifyOTP();
-                                  } else {
-                                    loginWithPhone();
-                                  }
-                                }
-                                setState(() {
-                                  loading = false;
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          Colors.tealAccent,
-                                          Colors.teal,
-                                        ])),
-                                child: Padding(
-                                  padding: EdgeInsets.all(11.0),
-                                  child: Text(
-                                    otpVisibility ? "Verify" : "Login",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                        loading
+                            ? CircularProgressIndicator()
+                            : Material(
+                                child: GestureDetector(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        loading = true;
+                                      });
+                                      if (_key.currentState!.validate()) {
+                                        if (otpVisibility) {
+                                          verifyOTP();
+                                        } else {
+                                          loginWithPhone();
+                                        }
+                                      }
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 250,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                Colors.tealAccent,
+                                                Colors.teal,
+                                              ])),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(11.0),
+                                        child: Text(
+                                          otpVisibility ? "Verify" : "Login",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
