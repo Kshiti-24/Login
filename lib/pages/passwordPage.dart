@@ -27,19 +27,6 @@ class _PasswordPageState extends State<PasswordPage> {
   final auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  moveToHome(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.homeRoute);
-  }
-
-  moveToLogin(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.loginRoute);
-  }
-
-  moveToPassword(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.passwordRoute);
-  }
-
   @override
   void dispose() {
     emailController.dispose();
@@ -56,7 +43,7 @@ class _PasswordPageState extends State<PasswordPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: Colors.teal,
-              ),
+          ),
           child: SingleChildScrollView(
             child: Form(
               key: _key,
@@ -67,19 +54,20 @@ class _PasswordPageState extends State<PasswordPage> {
                     height: 30,
                   ),
                   // Image.asset('assets/images/forgot.png'),
-                  Lottie.asset('assets/images/forgot.json',height: 250),
+                  Lottie.asset('assets/images/forgot.json', height: 250),
                   SizedBox(
                     height: 10,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.7,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(90),
-                          topRight: Radius.circular(90),
-                        ),),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(90),
+                        topRight: Radius.circular(90),
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -124,19 +112,20 @@ class _PasswordPageState extends State<PasswordPage> {
                           height: 29,
                         ),
                         GestureDetector(
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 250,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                colors:[ Colors.tealAccent,Colors.teal]
-                              )
-                            ),
-                            child: InkWell(
-                              onTap: ()=>resetPassword(),
+                          child: InkWell(
+                            onTap: () => resetPassword(),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.tealAccent,
+                                        Colors.teal
+                                      ])),
                               child: Padding(
                                 padding: EdgeInsets.all(11.0),
                                 child: Text(
@@ -179,15 +168,15 @@ class _PasswordPageState extends State<PasswordPage> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Password Reset Email sent!')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Password Reset Email sent!')));
     } on FirebaseAuthException catch (e) {
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Password Reset Email sent!')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Password Reset Email sent!')));
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

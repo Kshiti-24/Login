@@ -15,11 +15,6 @@ class _WelcomePageState extends State<WelcomePage> {
   String name = "";
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
-
-  moveToOtp(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.otpRoute);
-  }
-
   moveToNewLogin(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.newloginRoute);
   }
@@ -95,7 +90,9 @@ class _WelcomePageState extends State<WelcomePage> {
                         // ElevatedButton(
                         Material(
                           child: GestureDetector(
-                            child: Container(
+                            child: InkWell(
+                              onTap: () => moveToLogin(context),
+                              child: Container(
                               alignment: Alignment.center,
                               width: 250,
                               decoration: BoxDecoration(
@@ -107,8 +104,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                         Colors.tealAccent,
                                         Colors.teal,
                                       ])),
-                              child: InkWell(
-                                onTap: () => moveToLogin(context),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(
@@ -129,6 +124,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         // ElevatedButton(
                         Material(
                           child: GestureDetector(
+                            child: InkWell(
+                              onTap: () => moveToNewLogin(context),
                             child: Container(
                               alignment: Alignment.center,
                               width: 250,
@@ -141,8 +138,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                         Colors.tealAccent,
                                         Colors.teal,
                                       ])),
-                              child: InkWell(
-                                onTap: () => moveToNewLogin(context),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(
@@ -162,6 +157,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         Material(
                           child: GestureDetector(
+                            child: InkWell(
+                              onTap: () => moveToSignIn(context),
                             child: Container(
                               alignment: Alignment.center,
                               width: 250,
@@ -174,8 +171,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                         Colors.tealAccent,
                                         Colors.teal,
                                       ])),
-                              child: InkWell(
-                                onTap: () => moveToSignIn(context),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(
@@ -195,6 +190,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         Material(
                           child: GestureDetector(
+                            child: InkWell(
+                              onTap: () => moveToAddLogin(context),
                             child: Container(
                               alignment: Alignment.center,
                               width: 250,
@@ -207,8 +204,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                         Colors.tealAccent,
                                         Colors.teal,
                                       ])),
-                              child: InkWell(
-                                onTap: () => moveToAddLogin(context),
                                 child: Padding(
                                   padding: EdgeInsets.all(11.0),
                                   child: Text(

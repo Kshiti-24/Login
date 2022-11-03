@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: Colors.teal,
-              ),
+          ),
           child: SingleChildScrollView(
             child: Form(
               key: _key,
@@ -57,16 +57,17 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset('assets/images/login.png'),
-                  Lottie.asset('assets/images/login.json',height: 250),
+                  Lottie.asset('assets/images/login.json', height: 250),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.7,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(90),
-                          topRight: Radius.circular(90),
-                        ),),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(90),
+                        topRight: Radius.circular(90),
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -180,50 +181,51 @@ class _LoginPageState extends State<LoginPage> {
                             ? CircularProgressIndicator()
                             : Material(
                                 child: GestureDetector(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: 250,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            colors: [
-                                              Colors.tealAccent,
-                                              Colors.teal,
-                                            ])),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        setState(() {
-                                          loading = true;
-                                        });
-                                        if (_key.currentState!.validate()) {
-                                          User? result = await AuthService()
-                                              .login(
-                                                  emailController.text,
-                                                  passwordController.text,
-                                                  context);
-                                          if (result != null) {
-                                            print("Success");
-                                            print(result.email);
-                                            // Navigator.pushNamed(context, MyRoutes.newHomeRoute);
-                                            Navigator.pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        NewHomePage()),
-                                                (route) => false);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                                    content: Text(
-                                                        'Logged In successfully')));
-                                          }
-                                          const Text("Logging In");
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        loading = true;
+                                      });
+                                      if (_key.currentState!.validate()) {
+                                        User? result = await AuthService()
+                                            .login(
+                                                emailController.text,
+                                                passwordController.text,
+                                                context);
+                                        if (result != null) {
+                                          print("Success");
+                                          print(result.email);
+                                          // Navigator.pushNamed(context, MyRoutes.newHomeRoute);
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      NewHomePage()),
+                                              (route) => false);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'Logged In successfully')));
                                         }
-                                        setState(() {
-                                          loading = false;
-                                        });
-                                      },
+                                        const Text("Logging In");
+                                      }
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 250,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                Colors.tealAccent,
+                                                Colors.teal,
+                                              ])),
                                       child: Padding(
                                         padding: EdgeInsets.all(11.0),
                                         child: Text(

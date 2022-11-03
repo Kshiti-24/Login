@@ -222,6 +222,33 @@ class _SignInPageState extends State<SignInPage> {
                             ? CircularProgressIndicator()
                             : Material(
                                 child: GestureDetector(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        loading = true;
+                                      });
+                                      if (_key.currentState!.validate()) {
+                                        User? result = await AuthService()
+                                            .register(
+                                            emailController.text,
+                                            passwordController.text,
+                                            context);
+                                        if (result != null) {
+                                          print("Success");
+                                          print(result.email);
+                                          Navigator.pushNamed(
+                                              context, MyRoutes.verifyRoute);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'Please verify your email')));
+                                        }
+                                        const Text("Signing Up");
+                                      }
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                    },
                                   child: Container(
                                     alignment: Alignment.center,
                                     width: 250,
@@ -234,33 +261,6 @@ class _SignInPageState extends State<SignInPage> {
                                               Colors.tealAccent,
                                               Colors.teal,
                                             ])),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        setState(() {
-                                          loading = true;
-                                        });
-                                        if (_key.currentState!.validate()) {
-                                          User? result = await AuthService()
-                                              .register(
-                                                  emailController.text,
-                                                  passwordController.text,
-                                                  context);
-                                          if (result != null) {
-                                            print("Success");
-                                            print(result.email);
-                                            Navigator.pushNamed(
-                                                context, MyRoutes.verifyRoute);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                                    content: Text(
-                                                        'Please verify your email')));
-                                          }
-                                          const Text("Signing Up");
-                                        }
-                                        setState(() {
-                                          loading = false;
-                                        });
-                                      },
                                       child: Padding(
                                         padding: EdgeInsets.all(11.0),
                                         child: Text(

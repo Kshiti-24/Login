@@ -6,7 +6,6 @@ import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/pages/loginPage.dart';
 import 'package:login_ui/pages/loginPage2.dart';
 import 'package:login_ui/pages/newloginPage.dart';
-import 'package:login_ui/pages/otp.dart';
 import 'package:login_ui/pages/verify.dart';
 import 'package:login_ui/pages/welcomePage.dart';
 import 'package:login_ui/services/auth._service.dart';
@@ -52,7 +51,6 @@ class MyApp extends StatelessWidget {
         MyRoutes.passwordRoute: (context) => PasswordPage(),
         MyRoutes.verifyRoute: (context) => VerifyPage(),
         MyRoutes.newHomeRoute: (context) => NewHomePage(),
-        MyRoutes.otpRoute: (context) => OtpPage(),
         MyRoutes.newloginRoute: (context) => NewLoginPage(),
         MyRoutes.addloginRoute: (context) => AddLoginPage(),
         MyRoutes.welcomeRoute: (context) => WelcomePage(),

@@ -42,7 +42,7 @@ class _AddLoginPageState extends State<AddLoginPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: Colors.teal,
-             ),
+          ),
           child: SingleChildScrollView(
             child: Form(
               key: _key,
@@ -53,19 +53,20 @@ class _AddLoginPageState extends State<AddLoginPage> {
                     height: 30,
                   ),
                   // Image.asset('assets/images/sign.png'),
-                  Lottie.asset('assets/images/google.json',height: 250),
+                  Lottie.asset('assets/images/google.json', height: 250),
                   SizedBox(
                     height: 25,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height*0.7,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(90),
-                          topRight: Radius.circular(90),
-                        ),),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(90),
+                        topRight: Radius.circular(90),
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

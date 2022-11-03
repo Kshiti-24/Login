@@ -31,19 +31,6 @@ class _VerifyPageState extends State<VerifyPage> {
   moveToPassword(BuildContext context) async {
     await Navigator.pushNamed(context, MyRoutes.passwordRoute);
   }
-
-  // verifyEmail() async{
-  //   if(user!=null && !user!.emailVerified){
-  //     await user!.sendEmailVerification();
-  //     print('Verification Email has been sent');
-  //
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         content: Text('Verification Email has been sent',
-  //           style: TextStyle(fontSize: 18.0,color: Colors.amber),
-  //         ),
-  //     ),);
-  //   }
-  // }
   bool isEmailVerified = false;
   Timer? timer;
   bool canResendEmail = false;
@@ -149,23 +136,9 @@ class _VerifyPageState extends State<VerifyPage> {
                             SizedBox(
                               height: 29,
                             ),
-                            Container(
-                                width: 250,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    labelText: 'Email Address',
-                                    suffixIcon: Icon(
-                                      Icons.email,
-                                      color: Colors.black,
-                                      size: 17,
-                                    ),
-                                    hintText: 'Enter your email',
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 29,
-                            ),
                             GestureDetector(
+                              child: InkWell(
+                                onTap: () => NewHomePage(),
                               child: Container(
                                 alignment: Alignment.center,
                                 width: 250,
@@ -178,8 +151,6 @@ class _VerifyPageState extends State<VerifyPage> {
                                           Colors.tealAccent,
                                           Colors.teal
                                         ])),
-                                child: InkWell(
-                                  onTap: () => NewHomePage(),
                                   child: Padding(
                                     padding: EdgeInsets.all(11.0),
                                     child: Text(

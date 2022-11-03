@@ -20,10 +20,12 @@ class _NewHomePageState extends State<NewHomePage> {
       onWillPop: () => _onBackButtonPressed(context),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Dashboard",
-          style: TextStyle(
-            color: Colors.black,
-          ),),
+          title: const Text(
+            "Dashboard",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
           centerTitle: true,
           backgroundColor: Colors.white,
           actions: [
@@ -42,12 +44,11 @@ class _NewHomePageState extends State<NewHomePage> {
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: Colors.teal),
+            decoration: BoxDecoration(color: Colors.teal),
             child: Center(
               child: Column(
                 children: [
-                  Lottie.asset('assets/images/register.json',height: 250),
+                  Lottie.asset('assets/images/register.json', height: 250),
                   AnimatedTextKit(
                     animatedTexts: [
                       TyperAnimatedText('Welcome',
@@ -66,7 +67,9 @@ class _NewHomePageState extends State<NewHomePage> {
                       print("Tap Event");
                     },
                   ),
-                  SizedBox(height: 29,),
+                  SizedBox(
+                    height: 29,
+                  ),
                   Text(
                     "Email :",
                   ),
@@ -74,7 +77,7 @@ class _NewHomePageState extends State<NewHomePage> {
                     height: 11,
                   ),
                   Text(
-                    user.email!,
+                    user.email ?? "Email not entered",
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
