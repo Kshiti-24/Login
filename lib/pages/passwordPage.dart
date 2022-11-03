@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:login_ui/utils/utils.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:login_ui/services/auth._service.dart';
 import 'package:lottie/lottie.dart';
@@ -180,12 +179,15 @@ class _PasswordPageState extends State<PasswordPage> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
-      Utils.showSnackBar('Password Reset Email sent!');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password Reset Email sent!')));
     } on FirebaseAuthException catch (e) {
       print(e);
-      Utils.showSnackBar(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString())));
     }
-    Utils.showSnackBar('Password Reset Email sent!');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Password Reset Email sent!')));
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

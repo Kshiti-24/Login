@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
               child: UserAccountsDrawerHeader(
                 margin: EdgeInsets.zero,
                 accountName: Text(
-                  user.uid,
+                 user.displayName!,
                   style: TextStyle(color: Colors.white),
                 ),
                 accountEmail: Text(
@@ -30,7 +30,7 @@ class MyDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(imageUrl),
+                  backgroundImage: NetworkImage(user.photoURL!),
                 ),
               ),
             ),

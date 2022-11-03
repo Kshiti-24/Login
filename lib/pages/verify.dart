@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_ui/pages/homepage2.dart';
 import 'package:login_ui/utils/routes.dart';
 import 'dart:async';
-import 'package:login_ui/utils/utils.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
 
@@ -75,7 +74,8 @@ class _VerifyPageState extends State<VerifyPage> {
       await Future.delayed(Duration(seconds: 5));
       setState(() => canResendEmail = true);
     } on FirebaseAuthException catch (e) {
-      Utils.showSnackBar(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -101,8 +101,7 @@ class _VerifyPageState extends State<VerifyPage> {
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Colors.teal),
+              decoration: BoxDecoration(color: Colors.teal),
               child: SingleChildScrollView(
                 child: Form(
                   key: _key,

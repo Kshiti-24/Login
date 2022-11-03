@@ -16,7 +16,6 @@ import 'package:login_ui/widgets/themes.dart';
 import 'package:login_ui/pages/signin_page.dart';
 import 'package:login_ui/pages/passwordPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:login_ui/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

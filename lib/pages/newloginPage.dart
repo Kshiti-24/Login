@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:login_ui/pages/homepage2.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-enum MobileVerificationState {
-  SHOW_MOBILE_FORM_STATE,
-  SHOW_OTP_FORM_STATE,
-}
+import 'homepage2.dart';
 
 class NewLoginPage extends StatefulWidget {
   @override
@@ -14,154 +10,133 @@ class NewLoginPage extends StatefulWidget {
 }
 
 class _NewLoginPageState extends State<NewLoginPage> {
-  MobileVerificationState currentState =
-      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
 
-  final phoneController = TextEditingController();
-  final otpController = TextEditingController();
-
-  FirebaseAuth _auth = FirebaseAuth.instance;
-
-  late String verificationId;
-
-  bool showLoading = false;
-
-  void signInWithPhoneAuthCredential(
-      PhoneAuthCredential phoneAuthCredential) async {
-    setState(() {
-      showLoading = true;
-    });
-    try {
-      final authCredential =
-          await _auth.signInWithCredential(phoneAuthCredential);
-
-      setState(() {
-        showLoading = false;
-      });
-
-      if (authCredential.user != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => NewHomePage()));
-      }
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        showLoading = false;
-      });
-
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.message.toString())));
-    }
-  }
-
-  getMobileFormWidget(context) {
-    return Column(
-      children: [
-        Spacer(),
-        TextField(
-          controller: phoneController,
-          decoration: InputDecoration(hintText: "Phone Number"),
-        ),
-        SizedBox(
-          height: 16.0,
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        TextButton(
-          onPressed: () async {
-            setState(() {
-              showLoading = true;
-            });
-
-            await _auth.verifyPhoneNumber(
-              phoneNumber: phoneController.text,
-              verificationCompleted: (phoneAuthCredential) async {
-                setState(() {
-                  showLoading = false;
-                });
-                //signInWithPhoneAuthCredential(phoneAuthCredential);
-              },
-              verificationFailed: (verificationFailed) async {
-                setState(() {
-                  showLoading = false;
-                });
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(verificationFailed.message.toString())));
-              },
-              codeSent: (verificationId, resendingToken) async {
-                setState(() {
-                  showLoading = false;
-                  currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
-                  this.verificationId = verificationId;
-                });
-              },
-              codeAutoRetrievalTimeout: (verificationId) async {},
-            );
-          },
-          child: Text(
-            "SEND",
-          ),
-          style: TextButton.styleFrom(
-            primary: Colors.white,
-            backgroundColor: Colors.deepPurple,
-          ),
-        ),
-        Spacer(),
-      ],
-    );
-  }
-
-  getOtpFormWidget(context) {
-    return Column(
-      children: [
-        Spacer(),
-        TextField(
-          controller: otpController,
-          decoration: InputDecoration(hintText: "Enter OTP"),
-        ),
-        SizedBox(
-          height: 16.0,
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        TextButton(
-          onPressed: () async {
-            PhoneAuthCredential phoneAuthCredential =
-                PhoneAuthProvider.credential(
-                    verificationId: verificationId,
-                    smsCode: otpController.text);
-
-            signInWithPhoneAuthCredential(phoneAuthCredential);
-          },
-          child: Text(
-            "VERIFY",
-          ),
-          style: TextButton.styleFrom(
-            primary: Colors.white,
-            backgroundColor: Colors.deepPurple,
-          ),
-        ),
-        Spacer(),
-      ],
-    );
-  }
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  bool otpVisibility = false;
+  User? user;
+  String verificationID = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        body: Container(
-          child: showLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-                  ? getMobileFormWidget(context)
-                  : getOtpFormWidget(context),
-          padding: const EdgeInsets.all(16),
-        ));
+      appBar: AppBar(
+        title: Text(
+          "Phone Auth",
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ),
+        backgroundColor: Colors.indigo[900],
+      ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: phoneController,
+              decoration: InputDecoration(
+                hintText: 'Phone Number',
+                prefix: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Text('+91'),
+                ),
+              ),
+              maxLength: 10,
+              keyboardType: TextInputType.phone,
+            ),
+            Visibility(
+              child: TextField(
+                controller: otpController,
+                decoration: InputDecoration(
+                  hintText: 'OTP',
+                  prefix: Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(''),
+                  ),
+                ),
+                maxLength: 6,
+                keyboardType: TextInputType.number,
+              ),
+              visible: otpVisibility,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            MaterialButton(
+              color: Colors.indigo[900],
+              onPressed: () {
+                if (otpVisibility) {
+                  verifyOTP();
+                } else {
+                  loginWithPhone();
+                }
+              },
+              child: Text(
+                otpVisibility ? "Verify" : "Login",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void loginWithPhone() async {
+    auth.verifyPhoneNumber(
+      phoneNumber: "+91" + phoneController.text,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential).then((value) {
+          print("You are logged in successfully");
+        });
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print(e.message);
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        otpVisibility = true;
+        verificationID = verificationId;
+        setState(() {});
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
+  void verifyOTP() async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationID, smsCode: otpController.text);
+
+    await auth.signInWithCredential(credential).then(
+      (value) {
+        setState(() {
+          user = FirebaseAuth.instance.currentUser!;
+        });
+      },
+    ).whenComplete(
+      () {
+        user ??
+            Fluttertoast.showToast(
+              msg: "You are logged in successfully",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NewHomePage(),
+          ),
+        );
+      },
+    );
   }
 }
