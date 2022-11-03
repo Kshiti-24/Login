@@ -32,7 +32,7 @@ class _NewHomePageState extends State<NewHomePage> {
             TextButton.icon(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushNamed(context, MyRoutes.welcomeRoute);
+                Navigator.pushReplacementNamed(context, MyRoutes.welcomeRoute);
               },
               icon: Icon(Icons.logout),
               label: Text('Log Out'),
@@ -71,13 +71,13 @@ class _NewHomePageState extends State<NewHomePage> {
                     height: 29,
                   ),
                   Text(
-                    "Email :",
+                   user.email != null ? "Email :" : "Phone Number : " ,
                   ),
                   SizedBox(
                     height: 11,
                   ),
                   Text(
-                    user.email ?? "Email not entered",
+                    user.email ?? user.phoneNumber ?? " invalid",
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -157,8 +157,11 @@ class _NewHomePageState extends State<NewHomePage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
+          // Navigator.of(context)
+          //     .pushNamedAndRemoveUntil("/welcome", ModalRoute.withName('/welcome'));
+          //     },
+          Navigator.of(context).pop(true);
+          },
                 child: const Text("Yes"),
               ),
             ],

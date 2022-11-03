@@ -16,19 +16,19 @@ class _WelcomePageState extends State<WelcomePage> {
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
   moveToNewLogin(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.newloginRoute);
+    await Navigator.pushReplacementNamed(context, MyRoutes.newloginRoute);
   }
 
   moveToAddLogin(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.addloginRoute);
+    await Navigator.pushReplacementNamed(context, MyRoutes.addloginRoute);
   }
 
   moveToSignIn(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.signInRoute);
+    await Navigator.pushReplacementNamed(context, MyRoutes.signInRoute);
   }
 
   moveToLogin(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.loginRoute);
+    await Navigator.pushReplacementNamed(context, MyRoutes.loginRoute);
   }
 
   @override

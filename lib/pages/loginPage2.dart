@@ -106,7 +106,7 @@ class _AddLoginPageState extends State<AddLoginPage> {
                           if (result != null) {
                             print("Success");
                             print(result.email);
-                            Navigator.pushNamed(context, MyRoutes.newHomeRoute);
+                            Navigator.pushReplacementNamed(context, MyRoutes.newHomeRoute);
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text('Logged In successfully')));
                           }

@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
 
   moveToHome(BuildContext context) async {
-    await Navigator.pushNamed(context, MyRoutes.homeRoute);
+    await Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
   }
 
   moveToSignIn(BuildContext context) async {
